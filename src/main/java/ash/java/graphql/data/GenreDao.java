@@ -1,6 +1,6 @@
 package ash.java.graphql.data;
 
-import ash.kotlin.graphql.GenreType;
+import ash.kotlin.graphql.types.genre.GenreType;
 
 import java.util.List;
 

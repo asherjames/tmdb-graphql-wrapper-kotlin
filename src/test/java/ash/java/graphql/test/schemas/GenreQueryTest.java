@@ -5,7 +5,7 @@ import ash.java.graphql.data.GenreDao;
 import ash.java.graphql.fields.FieldProducer;
 import ash.java.graphql.fields.GenreSchema;
 import ash.java.graphql.test.TestUtil;
-import ash.kotlin.graphql.GenreType;
+import ash.kotlin.graphql.types.genre.GenreType;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.BeforeClass;

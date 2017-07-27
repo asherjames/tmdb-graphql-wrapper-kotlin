@@ -1,4 +1,4 @@
-package ash.kotlin.graphql.types
+package ash.kotlin.graphql.types.genre
 
 import ash.java.graphql.types.TmdbObjectType
 import graphql.annotations.GraphQLField

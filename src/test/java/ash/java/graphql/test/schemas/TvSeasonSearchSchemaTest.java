@@ -8,7 +8,6 @@ import ash.java.graphql.test.TestUtil;
 import ash.java.graphql.types.tvseason.TvCrewType;
 import ash.java.graphql.types.tvseason.TvEpisodeType;
 import ash.java.graphql.types.tvseason.TvGuestStarType;
-import ash.kotlin.graphql.GenreType;
 import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
