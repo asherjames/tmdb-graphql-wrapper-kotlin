@@ -2,10 +2,10 @@ package ash.java.graphql.test.schemas;
 
 import ash.java.graphql.TmdbSchema;
 import ash.java.graphql.data.GenreDao;
-import ash.java.graphql.types.genre.GenreType;
 import ash.java.graphql.fields.FieldProducer;
 import ash.java.graphql.fields.GenreSchema;
 import ash.java.graphql.test.TestUtil;
+import ash.kotlin.graphql.GenreType;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.BeforeClass;
@@ -78,9 +78,15 @@ public class GenreQueryTest {
 
     private static List<FieldProducer> mockFields() {
         List<GenreType> genres = new ArrayList<>();
-        genres.add(new GenreType(28, "Action"));
-        genres.add(new GenreType(35, "Comedy"));
-        genres.add(new GenreType(14, "Fantasy"));
+        GenreType g1 = new GenreType("Action");
+        GenreType g2 = new GenreType("Comedy");
+        GenreType g3 = new GenreType("Fantasy");
+        g1.setId(28);
+        g2.setId(35);
+        g3.setId(12);
+        genres.add(g1);
+        genres.add(g2);
+        genres.add(g3);
 
         GenreDao genreDao = mock(GenreDao.class);
 
