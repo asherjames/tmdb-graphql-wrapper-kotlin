@@ -1,7 +1,7 @@
 package ash.java.graphql.fields;
 
 import ash.java.graphql.data.SearchDao;
-import ash.java.graphql.types.movie.MovieType;
+import ash.kotlin.graphql.types.movie.MovieType;
 import ash.kotlin.graphql.types.multisearch.PersonType;
 import ash.kotlin.graphql.types.multisearch.TvShowType;
 import graphql.schema.GraphQLFieldDefinition;

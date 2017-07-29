@@ -1,6 +1,6 @@
 package ash.java.graphql.data;
 
-import ash.java.graphql.types.movie.MovieType;
+import ash.kotlin.graphql.types.movie.MovieType;
 import ash.kotlin.graphql.types.multisearch.PersonType;
 import ash.kotlin.graphql.types.multisearch.TvShowType;
 import com.google.gson.*;

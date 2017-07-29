@@ -1,7 +1,7 @@
 package ash.java.graphql.fields;
 
 import ash.java.graphql.data.SearchDao;
-import ash.java.graphql.types.movie.MovieType;
+import ash.kotlin.graphql.types.movie.MovieType;
 import graphql.schema.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

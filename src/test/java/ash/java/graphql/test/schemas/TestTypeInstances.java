@@ -1,8 +1,8 @@
 package ash.java.graphql.test.schemas;
 
 import ash.java.graphql.test.TestUtil;
-import ash.java.graphql.types.movie.MovieType;
 import ash.java.graphql.types.tvseason.TvSeasonType;
+import ash.kotlin.graphql.types.movie.MovieType;
 import ash.kotlin.graphql.types.multisearch.PersonType;
 import ash.kotlin.graphql.types.multisearch.TvShowType;
 import com.google.gson.Gson;
@@ -16,13 +16,12 @@ public class TestTypeInstances {
     private static Gson gson = new Gson();
 
     public static MovieType getMovie() {
-        MovieType movie = new MovieType();
+        MovieType movie = new MovieType(387);
         movie.setPosterPath("/kI1rptTkqDWj6SBRsYwguBvPViT.jpg");
         movie.setAdult(false);
         movie.setOverview("A German submarine hunts allied ships...");
         movie.setReleaseDate("1981-09-16");
         movie.setGenreIds(Arrays.asList(28, 18, 36, 10752, 12));
-        movie.setId(387);
         movie.setOriginalTitle("Das Boot");
         movie.setOriginalLanguage("de");
         movie.setTitle("Das Boot");

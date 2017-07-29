@@ -2,8 +2,7 @@ package ash.kotlin.graphql.types.multisearch
 
 import ash.kotlin.graphql.types.TmdbObjectType
 import com.google.gson.annotations.SerializedName
-import graphql.annotations.GraphQLField
-import graphql.annotations.GraphQLName
+import graphql.annotations.*
 
 @GraphQLName("Person")
 data class PersonType(@GraphQLField override val id:Int = 0) : TmdbObjectType(id) {
