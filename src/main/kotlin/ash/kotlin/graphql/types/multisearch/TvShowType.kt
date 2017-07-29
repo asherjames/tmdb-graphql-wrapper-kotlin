@@ -1,12 +1,12 @@
 package ash.kotlin.graphql.types.multisearch
 
-import ash.java.graphql.types.TmdbObjectType
+import ash.kotlin.graphql.types.TmdbObjectType
 import com.google.gson.annotations.SerializedName
 import graphql.annotations.GraphQLField
 import graphql.annotations.GraphQLName
 
 @GraphQLName("TvShow")
-class TvShowType : TmdbObjectType() {
+data class TvShowType(override val id: Int = 0) : TmdbObjectType(id) {
 
     @GraphQLField
     var popularity = 0.0
