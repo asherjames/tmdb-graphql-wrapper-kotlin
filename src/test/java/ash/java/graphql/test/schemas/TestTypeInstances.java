@@ -2,19 +2,13 @@ package ash.java.graphql.test.schemas;
 
 import ash.java.graphql.test.TestUtil;
 import ash.java.graphql.types.movie.MovieType;
-import ash.java.graphql.types.multisearch.PersonType;
-import ash.java.graphql.types.multisearch.TvShowType;
 import ash.java.graphql.types.tvseason.TvSeasonType;
+import ash.kotlin.graphql.types.multisearch.PersonType;
+import ash.kotlin.graphql.types.multisearch.TvShowType;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class TestTypeInstances {
@@ -42,10 +36,9 @@ public class TestTypeInstances {
     }
 
     public static PersonType getPerson() {
-        PersonType person = new PersonType();
+        PersonType person = new PersonType(10205);
         person.setProfilePath("/wlg55BTcp3kqfTb3zDtqOFyqhDR.jpg");
         person.setAdult(false);
-        person.setId(10205);
         person.setMediaType("person");
         person.setName("Sigourney Weaver");
         person.setPopularity(8.978738);
@@ -54,10 +47,9 @@ public class TestTypeInstances {
     }
 
     public static TvShowType getTvShow() {
-        TvShowType tvShowType = new TvShowType();
+        TvShowType tvShowType = new TvShowType(1408);
         tvShowType.setPosterPath("/lxSzRZ49NXwsiyHuvMsd19QxduC.jpg");
         tvShowType.setPopularity(14.202559);
-        tvShowType.setId(1408);
         tvShowType.setOverview("Dr. Gregory House, a drug-addicted, unconventional, misanthropic medical genius...");
         tvShowType.setBackdropPath("/6r5o8yvLx7nESRBC1iMuYBCk9Cj.jpg");
         tvShowType.setVoteAverage(7.89);

@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -78,21 +79,11 @@ public class KeywordQueryTest {
     }
 
     private static List<FieldProducer> mockFields() {
-        List<KeywordType> keywords = new ArrayList<>();
-        KeywordType k1 = new KeywordType("elves");
-        KeywordType k2 = new KeywordType("dwarves");
-        KeywordType k3 = new KeywordType("hobbit");
-        KeywordType k4 = new KeywordType("mission");
-
-        k1.setId(603);
-        k2.setId(604);
-        k3.setId(611);
-        k4.setId(10364);
-
-        keywords.add(k1);
-        keywords.add(k2);
-        keywords.add(k3);
-        keywords.add(k4);
+        List<KeywordType> keywords = Arrays.asList(
+                new KeywordType(603, "elves"),
+                new KeywordType(604, "dwarves"),
+                new KeywordType(611, "hobbit"),
+                new KeywordType(10364,"mission"));
 
         MovieDao movieDao = mock(MovieDao.class);
 

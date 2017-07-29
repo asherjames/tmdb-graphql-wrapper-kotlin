@@ -27,7 +27,11 @@ data class TvShowType(override val id: Int = 0) : TmdbObjectType(id) {
 
     @GraphQLField
     @SerializedName("vote_average")
-    var voteAverage = ""
+    var voteAverage = 0.0
+
+    @GraphQLField
+    @SerializedName("media_type")
+    var mediaType = ""
 
     @GraphQLField
     @SerializedName("first_air_date")

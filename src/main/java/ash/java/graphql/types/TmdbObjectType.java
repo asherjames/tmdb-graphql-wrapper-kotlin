@@ -17,6 +17,10 @@ public abstract class TmdbObjectType {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public GraphQLObjectType getGraphQlType() {
         GraphQLObjectType objectType = null;
         try {
