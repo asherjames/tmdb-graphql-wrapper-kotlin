@@ -2,10 +2,10 @@ package ash.java.graphql.test.schemas;
 
 import ash.java.graphql.TmdbSchema;
 import ash.java.graphql.data.MovieDao;
-import ash.java.graphql.types.keyword.KeywordType;
 import ash.java.graphql.fields.FieldProducer;
 import ash.java.graphql.fields.KeywordSchema;
 import ash.java.graphql.test.TestUtil;
+import ash.kotlin.graphql.types.keyword.KeywordType;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.BeforeClass;
@@ -79,10 +79,20 @@ public class KeywordQueryTest {
 
     private static List<FieldProducer> mockFields() {
         List<KeywordType> keywords = new ArrayList<>();
-        keywords.add(new KeywordType(603, "elves"));
-        keywords.add(new KeywordType(604, "dwarves"));
-        keywords.add(new KeywordType(611, "hobbit"));
-        keywords.add(new KeywordType(10364, "mission"));
+        KeywordType k1 = new KeywordType("elves");
+        KeywordType k2 = new KeywordType("dwarves");
+        KeywordType k3 = new KeywordType("hobbit");
+        KeywordType k4 = new KeywordType("mission");
+
+        k1.setId(603);
+        k2.setId(604);
+        k3.setId(611);
+        k4.setId(10364);
+
+        keywords.add(k1);
+        keywords.add(k2);
+        keywords.add(k3);
+        keywords.add(k4);
 
         MovieDao movieDao = mock(MovieDao.class);
 
