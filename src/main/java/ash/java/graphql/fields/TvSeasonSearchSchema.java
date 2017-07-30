@@ -2,6 +2,7 @@ package ash.java.graphql.fields;
 
 
 import ash.java.graphql.data.TvDao;
+import ash.kotlin.graphql.fields.FieldProducer;
 import ash.kotlin.graphql.types.tvseason.TvSeasonType;
 import graphql.schema.GraphQLFieldDefinition;
 import graphql.schema.GraphQLNonNull;
