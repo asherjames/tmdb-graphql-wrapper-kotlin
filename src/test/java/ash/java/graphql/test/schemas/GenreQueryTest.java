@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -77,16 +78,10 @@ public class GenreQueryTest {
     }
 
     private static List<FieldProducer> mockFields() {
-        List<GenreType> genres = new ArrayList<>();
-        GenreType g1 = new GenreType("Action");
-        GenreType g2 = new GenreType("Comedy");
-        GenreType g3 = new GenreType("Fantasy");
-        g1.setId(28);
-        g2.setId(35);
-        g3.setId(12);
-        genres.add(g1);
-        genres.add(g2);
-        genres.add(g3);
+        List<GenreType> genres = Arrays.asList(
+                new GenreType(28, "Action"),
+                new GenreType(35, "Comedy"),
+                new GenreType(12, "Fantasy"));
 
         GenreDao genreDao = mock(GenreDao.class);
 

@@ -2,11 +2,10 @@ package ash.kotlin.graphql.types.movie
 
 import ash.kotlin.graphql.types.TmdbObjectType
 import com.google.gson.annotations.SerializedName
-import graphql.annotations.GraphQLField
-import graphql.annotations.GraphQLName
+import graphql.annotations.*
 
 @GraphQLName("Movie")
-data class MovieType(@GraphQLField override val id:Int = 0) : TmdbObjectType(id) {
+class MovieType(id:Int = 0) : TmdbObjectType(id) {
     @GraphQLField
     var title = ""
 

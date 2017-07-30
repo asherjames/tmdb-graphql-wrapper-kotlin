@@ -1,10 +1,10 @@
 package ash.java.graphql.test.schemas;
 
 import ash.java.graphql.test.TestUtil;
-import ash.java.graphql.types.tvseason.TvSeasonType;
 import ash.kotlin.graphql.types.movie.MovieType;
 import ash.kotlin.graphql.types.multisearch.PersonType;
 import ash.kotlin.graphql.types.multisearch.TvShowType;
+import ash.kotlin.graphql.types.tvseason.TvSeasonType;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

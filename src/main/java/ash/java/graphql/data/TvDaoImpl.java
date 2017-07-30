@@ -1,6 +1,6 @@
 package ash.java.graphql.data;
 
-import ash.java.graphql.types.tvseason.TvSeasonType;
+import ash.kotlin.graphql.types.tvseason.TvSeasonType;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.HttpResponse;

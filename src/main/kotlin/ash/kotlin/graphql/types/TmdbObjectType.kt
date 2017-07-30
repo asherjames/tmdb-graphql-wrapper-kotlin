@@ -1,13 +1,14 @@
 package ash.kotlin.graphql.types
 
 import graphql.annotations.GraphQLAnnotations
+import graphql.annotations.GraphQLField
 import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLInterfaceType
 import graphql.schema.GraphQLObjectType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-abstract class TmdbObjectType(open val id: Int) {
+abstract class TmdbObjectType(@GraphQLField val id: Int) {
     protected val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
     fun getGraphQlType(): GraphQLObjectType {

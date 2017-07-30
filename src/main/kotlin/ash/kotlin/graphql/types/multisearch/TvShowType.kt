@@ -6,7 +6,7 @@ import graphql.annotations.GraphQLField
 import graphql.annotations.GraphQLName
 
 @GraphQLName("TvShow")
-data class TvShowType(override val id: Int = 0) : TmdbObjectType(id) {
+class TvShowType(id: Int = 0) : TmdbObjectType(id) {
 
     @GraphQLField
     var popularity = 0.0

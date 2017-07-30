@@ -6,6 +6,7 @@ import ash.java.graphql.fields.FieldProducer;
 import ash.java.graphql.fields.KeywordSchema;
 import ash.java.graphql.test.TestUtil;
 import ash.kotlin.graphql.types.keyword.KeywordType;
+import ash.kotlin.graphql.types.tvseason.TvSeasonType;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.BeforeClass;
@@ -29,6 +30,8 @@ public class KeywordQueryTest {
     @BeforeClass
     public static void setupResults() {
         TmdbSchema schema = new TmdbSchema(mockFields());
+
+        TvSeasonType tvSeasonType = new TvSeasonType();
 
         resultObject = schema.executeQuery("{keywordList(filmId: 123){id name}}");
         resultJson = TestUtil.extractData(resultObject);

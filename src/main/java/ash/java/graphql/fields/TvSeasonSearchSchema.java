@@ -2,7 +2,7 @@ package ash.java.graphql.fields;
 
 
 import ash.java.graphql.data.TvDao;
-import ash.java.graphql.types.tvseason.TvSeasonType;
+import ash.kotlin.graphql.types.tvseason.TvSeasonType;
 import graphql.schema.GraphQLFieldDefinition;
 import graphql.schema.GraphQLNonNull;
 import org.springframework.beans.factory.annotation.Autowired;
