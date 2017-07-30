@@ -2,8 +2,7 @@ package ash.kotlin.graphql.fields
 
 import ash.java.graphql.data.GenreDao
 import ash.kotlin.graphql.types.genre.GenreType
-import graphql.schema.GraphQLFieldDefinition
-import graphql.schema.GraphQLList
+import graphql.schema.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
