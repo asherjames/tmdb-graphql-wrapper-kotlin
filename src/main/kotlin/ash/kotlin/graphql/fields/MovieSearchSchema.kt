@@ -3,9 +3,7 @@ package ash.kotlin.graphql.fields
 import ash.java.graphql.data.SearchDao
 import ash.kotlin.graphql.types.movie.MovieType
 import graphql.Scalars.*
-import graphql.schema.GraphQLFieldDefinition
-import graphql.schema.GraphQLList
-import graphql.schema.GraphQLNonNull
+import graphql.schema.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

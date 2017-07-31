@@ -2,7 +2,6 @@ package ash.java.graphql.test.schemas;
 
 import ash.java.graphql.TmdbSchema;
 import ash.java.graphql.data.SearchDao;
-import ash.java.graphql.fields.MultiSearchSchema;
 import ash.java.graphql.test.TestUtil;
 import ash.kotlin.graphql.fields.FieldProducer;
 import com.google.gson.Gson;
