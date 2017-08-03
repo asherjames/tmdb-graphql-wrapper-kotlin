@@ -1,6 +1,6 @@
 package ash.kotlin.graphql.fields
 
-import ash.java.graphql.data.MovieDao
+import ash.kotlin.graphql.data.MovieDao
 import ash.kotlin.graphql.types.keyword.KeywordType
 import graphql.Scalars
 import graphql.schema.GraphQLFieldDefinition

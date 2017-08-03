@@ -1,10 +1,12 @@
 package ash.java.graphql.data;
 
+import ash.kotlin.graphql.data.GenreDao;
 import ash.kotlin.graphql.types.genre.GenreType;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -16,6 +18,7 @@ public class GenreDaoImpl implements GenreDao {
     private Gson gson = new Gson();
     private Type genreListType = new TypeToken<List<GenreType>>(){}.getType();
 
+    @NotNull
     @Override
     public List<GenreType> getAllMovieGenres() {
         HttpResponse<JsonNode> response = TmdbHttpUtils.sendRequest(TmdbUrls.TmdbUrl.GENRE_LIST_URL);

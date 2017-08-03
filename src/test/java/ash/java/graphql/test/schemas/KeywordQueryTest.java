@@ -1,9 +1,10 @@
 package ash.java.graphql.test.schemas;
 
 import ash.java.graphql.TmdbSchema;
-import ash.java.graphql.data.MovieDao;
 import ash.java.graphql.test.TestUtil;
+import ash.kotlin.graphql.data.MovieDao;
 import ash.kotlin.graphql.fields.FieldProducer;
+import ash.kotlin.graphql.fields.KeywordSchema;
 import ash.kotlin.graphql.types.keyword.KeywordType;
 import ash.kotlin.graphql.types.tvseason.TvSeasonType;
 import com.google.gson.JsonObject;

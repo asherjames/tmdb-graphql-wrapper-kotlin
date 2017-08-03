@@ -1,6 +1,6 @@
 package ash.kotlin.graphql.fields
 
-import ash.java.graphql.data.TvDao
+import ash.kotlin.graphql.data.TvDao
 import ash.kotlin.graphql.types.tvseason.TvSeasonType
 import graphql.Scalars
 import graphql.schema.GraphQLFieldDefinition

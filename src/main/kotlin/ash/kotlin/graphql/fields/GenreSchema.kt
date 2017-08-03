@@ -1,6 +1,6 @@
 package ash.kotlin.graphql.fields
 
-import ash.java.graphql.data.GenreDao
+import ash.kotlin.graphql.data.GenreDao
 import ash.kotlin.graphql.types.genre.GenreType
 import graphql.schema.*
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +12,7 @@ class GenreSchema @Autowired constructor(val dao: GenreDao) : FieldProducer {
         return GraphQLFieldDefinition.newFieldDefinition()
                 .type(GraphQLList(GenreType().getGraphQlType()))
                 .name("genres")
-                .dataFetcher { _ -> dao.allMovieGenres }
+                .dataFetcher { _ -> dao.getAllMovieGenres() }
                 .build()
     }
 }

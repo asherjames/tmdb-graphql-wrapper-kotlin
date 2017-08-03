@@ -1,9 +1,10 @@
 package ash.java.graphql.test.schemas;
 
 import ash.java.graphql.TmdbSchema;
-import ash.java.graphql.data.TvDao;
 import ash.java.graphql.test.TestUtil;
+import ash.kotlin.graphql.data.TvDao;
 import ash.kotlin.graphql.fields.FieldProducer;
+import ash.kotlin.graphql.fields.TvSeasonSearchSchema;
 import ash.kotlin.graphql.types.tvseason.TvCrewType;
 import ash.kotlin.graphql.types.tvseason.TvEpisodeType;
 import ash.kotlin.graphql.types.tvseason.TvGuestStarType;

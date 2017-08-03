@@ -1,9 +1,10 @@
 package ash.java.graphql.test.schemas;
 
 import ash.java.graphql.TmdbSchema;
-import ash.java.graphql.data.SearchDao;
 import ash.java.graphql.test.TestUtil;
+import ash.kotlin.graphql.data.SearchDao;
 import ash.kotlin.graphql.fields.FieldProducer;
+import ash.kotlin.graphql.fields.MovieSearchSchema;
 import ash.kotlin.graphql.types.movie.MovieType;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

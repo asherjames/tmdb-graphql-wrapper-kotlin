@@ -1,5 +1,6 @@
 package ash.java.graphql.data;
 
+import ash.kotlin.graphql.data.SearchDao;
 import ash.kotlin.graphql.types.movie.MovieType;
 import ash.kotlin.graphql.types.multisearch.PersonType;
 import ash.kotlin.graphql.types.multisearch.TvShowType;
@@ -7,6 +8,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -23,8 +25,9 @@ public class SearchDaoImpl implements SearchDao {
     private JsonParser parser = new JsonParser();
     private Type movieSearchListType = new TypeToken<List<MovieType>>(){}.getType();
 
+    @NotNull
     @Override
-    public List<MovieType> searchMoviesWithQuery(String query) {
+    public List<MovieType> searchMoviesWithQuery(@NotNull String query) {
         Map<String, Object> queryMap = new HashMap<>();
         queryMap.put("query", query);
         HttpResponse<JsonNode> response = TmdbHttpUtils.sendRequest(TmdbUrls.TmdbQueryUrl.MOVIE_SEARCH_URL, queryMap);
@@ -34,8 +37,9 @@ public class SearchDaoImpl implements SearchDao {
         return gson.fromJson(searchResults, movieSearchListType);
     }
 
+    @NotNull
     @Override
-    public List<MovieType> searchMoviesWithMultipleParameters(Map<String, Object> params) {
+    public List<MovieType> searchMoviesWithMultipleParameters(@NotNull Map<String, Object> params) {
         HttpResponse<JsonNode> response = TmdbHttpUtils.sendRequest(TmdbUrls.TmdbQueryUrl.MOVIE_SEARCH_URL, params);
 
         String searchResults = response.getBody().getObject().get(RESULTS).toString();
@@ -43,8 +47,9 @@ public class SearchDaoImpl implements SearchDao {
         return gson.fromJson(searchResults, movieSearchListType);
     }
 
+    @NotNull
     @Override
-    public List<Object> searchMultiSearch(Map<String, Object> params) {
+    public List<Object> searchMultiSearch(@NotNull Map<String, Object> params) {
         List<Object> results = new ArrayList<>();
         HttpResponse<JsonNode> response = TmdbHttpUtils.sendRequest(TmdbUrls.TmdbQueryUrl.MULTI_SEARCH_URL, params);
 
