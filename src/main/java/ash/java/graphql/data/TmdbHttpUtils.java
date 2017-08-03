@@ -1,5 +1,6 @@
 package ash.java.graphql.data;
 
+import ash.kotlin.graphql.ApiKey;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -9,14 +10,13 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-import static ash.java.graphql.ApiKeyManager.getKey;
 import static ash.java.graphql.data.TmdbUrls.*;
 
 public final class TmdbHttpUtils {
 
     private static Logger log = LoggerFactory.getLogger(TmdbHttpUtils.class);
 
-    private static final String API_KEY = getKey();
+    private static final String API_KEY = ApiKey.INSTANCE.getApiKey();
 
     public static HttpResponse<JsonNode> sendRequest(TmdbUrl tmdbUrl) {
         return sendTmdbRequest(tmdbUrl.url);
