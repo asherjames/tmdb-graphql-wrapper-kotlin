@@ -1,7 +1,7 @@
 package ash.java.graphql.test.schemas;
 
-import ash.java.graphql.TmdbSchema;
 import ash.java.graphql.test.TestUtil;
+import ash.kotlin.graphql.TmdbSchema;
 import ash.kotlin.graphql.data.MovieDao;
 import ash.kotlin.graphql.fields.FieldProducer;
 import ash.kotlin.graphql.fields.KeywordSchema;

@@ -1,6 +1,7 @@
 package ash.java.graphql.api;
 
-import ash.java.graphql.TmdbSchema;
+
+import ash.kotlin.graphql.TmdbSchema;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
