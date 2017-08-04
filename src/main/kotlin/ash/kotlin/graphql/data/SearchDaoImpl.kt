@@ -1,7 +1,6 @@
 package ash.kotlin.graphql.data
 
 import ash.java.graphql.data.TmdbHttpUtils
-import ash.java.graphql.data.TmdbUrls
 import ash.kotlin.graphql.types.movie.MovieType
 import ash.kotlin.graphql.types.multisearch.PersonType
 import ash.kotlin.graphql.types.multisearch.TvShowType
@@ -22,7 +21,7 @@ class SearchDaoImpl : SearchDao {
     override fun searchMoviesWithQuery(query: String): List<MovieType> {
         val queryMap: MutableMap<String, Any> = HashMap()
         queryMap.put("query", query)
-        val response = TmdbHttpUtils.sendRequest(TmdbUrls.TmdbQueryUrl.MOVIE_SEARCH_URL, queryMap)
+        val response = TmdbHttpUtils.sendRequest(TmdbQueryUrl.MOVIE_SEARCH_URL, queryMap)
 
         val searchResults = response.body.`object`[RESULTS].toString()
 
@@ -30,7 +29,7 @@ class SearchDaoImpl : SearchDao {
     }
 
     override fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType> {
-        val response = TmdbHttpUtils.sendRequest(TmdbUrls.TmdbQueryUrl.MOVIE_SEARCH_URL, params)
+        val response = TmdbHttpUtils.sendRequest(TmdbQueryUrl.MOVIE_SEARCH_URL, params)
         val searchResults = response.body.`object`[RESULTS].toString()
 
         return gson.fromJson(searchResults, movieSearchListType)
@@ -38,7 +37,7 @@ class SearchDaoImpl : SearchDao {
 
     override fun searchMultiSearch(params: Map<String, Any>): List<Any> {
         val results: MutableList<Any> = ArrayList()
-        val response = TmdbHttpUtils.sendRequest(TmdbUrls.TmdbQueryUrl.MULTI_SEARCH_URL, params)
+        val response = TmdbHttpUtils.sendRequest(TmdbQueryUrl.MULTI_SEARCH_URL, params)
 
         val multiSearchResults: JsonArray = parser.parse(response.body.toString()).asJsonObject[RESULTS].asJsonArray
 
