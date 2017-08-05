@@ -14,7 +14,7 @@ object ApiKey {
     init {
         try {
             log.info("Attempting to load API key from properties file...")
-            val propertiesFile: InputStream = this.javaClass.getResourceAsStream("apiKey.properties") ?:
+            val propertiesFile: InputStream = this.javaClass.getResourceAsStream("/apiKey.properties") ?:
                     throw TmdbGqlException("Could not find properties file!")
             val props: Properties = Properties()
             props.load(propertiesFile)
