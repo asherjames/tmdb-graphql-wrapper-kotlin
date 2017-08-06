@@ -9,28 +9,10 @@ import ash.kotlin.graphql.types.genre.GenreType
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import org.assertj.core.api.Assertions.*
-import org.junit.Before
+import org.junit.BeforeClass
 import org.junit.Test
 
 class GenreQueryTest {
-
-    private lateinit var resultObjectIdName: Any
-    private lateinit var resultJsonIdName: JsonObject
-    private lateinit var resultJsonId: JsonObject
-    private lateinit var resultJsonName: JsonObject
-
-    @Before fun setupResults() {
-        val schema = TmdbSchema(mockFields())
-
-        resultObjectIdName = schema.executeQuery("{genres{id name}}")
-        resultJsonIdName = TestUtil.extractData(resultObjectIdName)
-
-        val resultObjectId = schema.executeQuery("{genres{id}}")
-        resultJsonId = TestUtil.extractData(resultObjectId)
-
-        val resultObjectName = schema.executeQuery("{genres{name}}")
-        resultJsonName = TestUtil.extractData(resultObjectName)
-    }
 
     @Test
     fun correctQueryShouldNotReturnNull() {
@@ -69,16 +51,38 @@ class GenreQueryTest {
                 .isEqualTo(JsonPrimitive("Action"))
     }
 
-    fun mockFields(): List<FieldProducer> {
-        class GenreDaoStub : GenreDao {
-            override fun getAllMovieGenres(): List<GenreType> {
-                return listOf(
-                        GenreType(28, "Action"),
-                        GenreType(35, "Comedy"),
-                        GenreType(12, "Fantasy"))
-            }
+    companion object {
+        private lateinit var resultObjectIdName: Any
+        private lateinit var resultJsonIdName: JsonObject
+        private lateinit var resultJsonId: JsonObject
+        private lateinit var resultJsonName: JsonObject
+
+         @BeforeClass
+         @JvmStatic
+         fun setupResults() {
+            val schema = TmdbSchema(mockFields())
+
+            resultObjectIdName = schema.executeQuery("{genres{id name}}")
+            resultJsonIdName = TestUtil.extractData(resultObjectIdName)
+
+            val resultObjectId = schema.executeQuery("{genres{id}}")
+            resultJsonId = TestUtil.extractData(resultObjectId)
+
+            val resultObjectName = schema.executeQuery("{genres{name}}")
+            resultJsonName = TestUtil.extractData(resultObjectName)
         }
 
-        return listOf(GenreSchema(GenreDaoStub()))
+        fun mockFields(): List<FieldProducer> {
+            class GenreDaoStub : GenreDao {
+                override fun getAllMovieGenres(): List<GenreType> {
+                    return listOf(
+                            GenreType(28, "Action"),
+                            GenreType(35, "Comedy"),
+                            GenreType(12, "Fantasy"))
+                }
+            }
+
+            return listOf(GenreSchema(GenreDaoStub()))
+        }
     }
 }
