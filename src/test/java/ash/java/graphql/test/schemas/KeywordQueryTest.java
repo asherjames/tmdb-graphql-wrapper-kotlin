@@ -31,8 +31,6 @@ public class KeywordQueryTest {
     public static void setupResults() {
         TmdbSchema schema = new TmdbSchema(mockFields());
 
-        TvSeasonType tvSeasonType = new TvSeasonType();
-
         resultObject = schema.executeQuery("{keywordList(filmId: 123){id name}}");
         resultJson = TestUtil.extractData(resultObject);
 

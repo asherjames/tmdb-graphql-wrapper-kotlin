@@ -1,39 +1,27 @@
 package ash.java.graphql.api;
 
-
 import ash.kotlin.graphql.TmdbSchema;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-@Component
-@Path("/")
+@RestController
 public class Endpoints {
 
     private final TmdbSchema tmdbSchema;
 
     @Autowired
-    public Endpoints(final TmdbSchema tmdbSchema) {
+    public Endpoints(TmdbSchema tmdbSchema) {
         this.tmdbSchema = tmdbSchema;
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getEndpoint() {
-        return Response.ok("GET endpoint").build();
+    @RequestMapping(method = GET)
+    public String getEndpoint() {
+        return "GET endpoint";
     }
 
-    @GET
-    @Path("/graphql")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response graphqlEndpoint(@QueryParam("query") String query) {
-        Object result = tmdbSchema.executeQuery(query);
-        String response = new Gson().toJson(result);
-
-        return Response.ok(response).build();
+    @RequestMapping(method = GET, value = "/graphql", produces = "application/json")
+    public Object graphqlEndpoint(@RequestParam("query") String query) {
+        return tmdbSchema.executeQuery(query);
     }
 }
