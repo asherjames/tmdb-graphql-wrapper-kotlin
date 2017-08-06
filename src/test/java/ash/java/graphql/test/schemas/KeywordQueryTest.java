@@ -6,7 +6,6 @@ import ash.kotlin.graphql.data.MovieDao;
 import ash.kotlin.graphql.fields.FieldProducer;
 import ash.kotlin.graphql.fields.KeywordSchema;
 import ash.kotlin.graphql.types.keyword.KeywordType;
-import ash.kotlin.graphql.types.tvseason.TvSeasonType;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.BeforeClass;
