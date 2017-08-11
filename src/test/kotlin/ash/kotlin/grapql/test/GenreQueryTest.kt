@@ -1,6 +1,5 @@
 package ash.kotlin.grapql.test
 
-import ash.java.graphql.test.TestUtil
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.GenreDao
 import ash.kotlin.graphql.fields.FieldProducer
@@ -63,13 +62,13 @@ class GenreQueryTest {
             val schema = TmdbSchema(mockFields())
 
             resultObjectIdName = schema.executeQuery("{genres{id name}}")
-            resultJsonIdName = TestUtil.extractData(resultObjectIdName)
+            resultJsonIdName = extractData(resultObjectIdName)
 
             val resultObjectId = schema.executeQuery("{genres{id}}")
-            resultJsonId = TestUtil.extractData(resultObjectId)
+            resultJsonId = extractData(resultObjectId)
 
             val resultObjectName = schema.executeQuery("{genres{name}}")
-            resultJsonName = TestUtil.extractData(resultObjectName)
+            resultJsonName = extractData(resultObjectName)
         }
 
         fun mockFields(): List<FieldProducer> {

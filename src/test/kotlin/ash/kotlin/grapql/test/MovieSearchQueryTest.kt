@@ -1,7 +1,5 @@
 package ash.kotlin.grapql.test
 
-import ash.java.graphql.test.TestUtil
-import ash.java.graphql.test.TestTypeInstances
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.SearchDao
 import ash.kotlin.graphql.fields.FieldProducer
@@ -58,13 +56,13 @@ class MovieSearchQueryTest {
             val schema = TmdbSchema(mockFields())
 
             posterPathResultObject = schema.executeQuery("{movieSearch(query: \"Das Boot\"){posterPath}}")
-            posterPathResultJson = TestUtil.extractData(posterPathResultObject)
+            posterPathResultJson = extractData(posterPathResultObject)
 
             val multipleFieldsResultObject = schema.executeQuery("{movieSearch(query: \"Das Boot\"){releaseDate title popularity voteCount}}")
-            multipleFieldsResultJson = TestUtil.extractData(multipleFieldsResultObject)
+            multipleFieldsResultJson = extractData(multipleFieldsResultObject)
 
             val nullQueryResultObject = schema.executeQuery("{movieSearch(year: 1981){releaseDate title popularity voteCount}}")
-            nullQueryResultJson = TestUtil.extractError(nullQueryResultObject)
+            nullQueryResultJson = extractError(nullQueryResultObject)
         }
 
         private fun mockFields(): List<FieldProducer> {
@@ -74,7 +72,7 @@ class MovieSearchQueryTest {
                 }
 
                 override fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType> {
-                    return listOf(TestTypeInstances.getMovie())
+                    return listOf(getMovie())
                 }
 
                 override fun searchMultiSearch(params: Map<String, Any>): List<Any> {

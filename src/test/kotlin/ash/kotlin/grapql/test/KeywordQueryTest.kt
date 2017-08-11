@@ -1,6 +1,5 @@
 package ash.kotlin.grapql.test
 
-import ash.java.graphql.test.TestUtil
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.MovieDao
 import ash.kotlin.graphql.fields.FieldProducer
@@ -65,13 +64,13 @@ class KeywordQueryTest {
             val schema = TmdbSchema(mockFields())
 
             resultObject = schema.executeQuery("{keywordList(filmId: 123){id name}}")
-            resultJson = TestUtil.extractData(resultObject)
+            resultJson = extractData(resultObject)
 
             val resultIdObject = schema.executeQuery("{keywordList(filmId: 123){id}}")
-            resultIdJson = TestUtil.extractData(resultIdObject)
+            resultIdJson = extractData(resultIdObject)
 
             val resultNameObject = schema.executeQuery("{keywordList(filmId: 123){name}}")
-            resultNameJson = TestUtil.extractData(resultNameObject)
+            resultNameJson = extractData(resultNameObject)
         }
 
         private fun mockFields(): List<FieldProducer> {

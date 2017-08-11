@@ -1,7 +1,5 @@
 package ash.kotlin.grapql.test
 
-import ash.java.graphql.test.TestUtil
-import ash.java.graphql.test.TestTypeInstances
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.SearchDao
 import ash.kotlin.graphql.fields.FieldProducer
@@ -143,48 +141,48 @@ class MultiSearchQueryTest {
 
             val personNameQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){" + "... on Person {name}}}")
 
-            personNameQueryJson = TestUtil.extractData(personNameQueryResultObject)
+            personNameQueryJson = extractData(personNameQueryResultObject)
 
             val movieTitleQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){" + "... on Movie{title}}}")
 
-            movieTitleQueryJson = TestUtil.extractData(movieTitleQueryResultObject)
+            movieTitleQueryJson = extractData(movieTitleQueryResultObject)
 
             val tvShowTitleQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){" + "... on TvShow {name}}}")
 
-            tvShowNameQueryJson = TestUtil.extractData(tvShowTitleQueryResultObject)
+            tvShowNameQueryJson = extractData(tvShowTitleQueryResultObject)
 
             val moviePersonQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){"
                     + "... on Person {profilePath}"
                     + "... on Movie {releaseDate}}}")
 
-            moviePersonQueryJson = TestUtil.extractData(moviePersonQueryResultObject)
+            moviePersonQueryJson = extractData(moviePersonQueryResultObject)
 
             val multiTypeQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){"
                     + "... on Person {id}"
                     + "... on Movie {overview genreIds originalLanguage}"
                     + "... on TvShow{popularity firstAirDate originalName}}}")
 
-            multiTypeQueryJson = TestUtil.extractData(multiTypeQueryResultObject)
+            multiTypeQueryJson = extractData(multiTypeQueryResultObject)
 
             val nullQueryResultObject = schema.executeQuery("{multiSearch(page: 1){" + "... on Person {name}}}")
 
-            nullQueryJson = TestUtil.extractError(nullQueryResultObject)
+            nullQueryJson = extractError(nullQueryResultObject)
         }
 
         private fun mockFields(): List<FieldProducer> {
             class SearchDaoStub : SearchDao {
                 override fun searchMoviesWithQuery(query: String): List<MovieType> {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    return listOf()
                 }
 
                 override fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType> {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    return listOf()
                 }
 
                 override fun searchMultiSearch(params: Map<String, Any>): List<Any> {
-                    return listOf(TestTypeInstances.getMovie(),
-                            TestTypeInstances.getPerson(),
-                            TestTypeInstances.getTvShow())
+                    return listOf(getMovie(),
+                            getPerson(),
+                            getTvShow())
                 }
             }
 

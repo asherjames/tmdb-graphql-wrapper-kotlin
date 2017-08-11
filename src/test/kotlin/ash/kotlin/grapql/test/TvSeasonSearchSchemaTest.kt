@@ -1,7 +1,5 @@
 package ash.kotlin.grapql.test
 
-import ash.java.graphql.test.TestTypeInstances
-import ash.java.graphql.test.TestUtil
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.TvDao
 import ash.kotlin.graphql.fields.FieldProducer
@@ -88,23 +86,23 @@ class TvSeasonSearchSchemaTest {
             val schema = TmdbSchema(mockFields())
 
             val seasonIdQueryResultObject = schema.executeQuery("{tvSeasonSearch(tvId: 1408, seasonNum: 5){id}}")
-            seasonIdJson = TestUtil.extractData(seasonIdQueryResultObject)
+            seasonIdJson = extractData(seasonIdQueryResultObject)
 
             val episodeNameQueryResultObject = schema.executeQuery("{tvSeasonSearch(tvId: 1408, seasonNum: 5){episodes{name}}}")
-            episodeNameJson = TestUtil.extractData(episodeNameQueryResultObject)
+            episodeNameJson = extractData(episodeNameQueryResultObject)
 
             val crewJobQueryResultObject = schema.executeQuery("{tvSeasonSearch(tvId: 1408, seasonNum: 5){episodes{crew{job}}}}")
-            crewJobJson = TestUtil.extractData(crewJobQueryResultObject)
+            crewJobJson = extractData(crewJobQueryResultObject)
 
             val guestNameAndCrewIdQueryResultObject = schema.executeQuery("{tvSeasonSearch(tvId: 1408, seasonNum: 5){episodes{crew{id} guestStars{name}}}}")
-            guestNameCrewIdJson = TestUtil.extractData(guestNameAndCrewIdQueryResultObject)
+            guestNameCrewIdJson = extractData(guestNameAndCrewIdQueryResultObject)
 
         }
 
         private fun mockFields() : List<FieldProducer> {
             class TvDaoStub : TvDao {
                 override fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType {
-                    return TestTypeInstances.getTvSeason()
+                    return getTvSeason()
                 }
             }
 
