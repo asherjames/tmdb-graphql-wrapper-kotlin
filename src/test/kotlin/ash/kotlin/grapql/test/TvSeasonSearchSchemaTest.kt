@@ -1,5 +1,6 @@
 package ash.kotlin.grapql.test
 
+import ash.java.graphql.test.TestTypeInstances
 import ash.java.graphql.test.TestUtil
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.TvDao
@@ -103,7 +104,7 @@ class TvSeasonSearchSchemaTest {
         private fun mockFields() : List<FieldProducer> {
             class TvDaoStub : TvDao {
                 override fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType {
-                    return ash.java.graphql.test.schemas.TestTypeInstances.getTvSeason()
+                    return TestTypeInstances.getTvSeason()
                 }
             }
 

@@ -1,7 +1,7 @@
 package ash.kotlin.grapql.test
 
 import ash.java.graphql.test.TestUtil
-import ash.java.graphql.test.schemas.TestTypeInstances
+import ash.java.graphql.test.TestTypeInstances
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.SearchDao
 import ash.kotlin.graphql.fields.FieldProducer

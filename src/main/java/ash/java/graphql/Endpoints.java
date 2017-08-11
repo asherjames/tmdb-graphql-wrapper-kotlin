@@ -1,4 +1,4 @@
-package ash.java.graphql.api;
+package ash.java.graphql;
 
 import ash.kotlin.graphql.TmdbSchema;
 import org.springframework.beans.factory.annotation.Autowired;

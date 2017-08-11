@@ -1,4 +1,4 @@
-package ash.java.graphql.test.schemas;
+package ash.java.graphql.test;
 
 import ash.java.graphql.test.TestUtil;
 import ash.kotlin.graphql.types.movie.MovieType;
