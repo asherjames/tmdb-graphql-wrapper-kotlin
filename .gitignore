@@ -37,3 +37,4 @@ gradle-app.setting
 *.rar
 hs_err_pid*
 /.idea/sonarlint/
+/src/main/resources/apiKey.properties
