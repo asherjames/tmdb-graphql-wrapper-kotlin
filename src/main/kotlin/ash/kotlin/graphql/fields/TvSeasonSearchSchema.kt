@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class TvSeasonSearchSchema @Autowired constructor(val dao: TvDao) : FieldProducer {
+class TvSeasonSearchSchema @Autowired constructor(private val dao: TvDao) : FieldProducer {
     override fun getFieldDefinition(): GraphQLFieldDefinition {
         return GraphQLFieldDefinition.newFieldDefinition()
                 .type(TvSeasonType().getGraphQlType())

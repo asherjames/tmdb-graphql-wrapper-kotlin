@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class MultiSearchSchema @Autowired constructor(val dao: SearchDao) : FieldProducer {
+class MultiSearchSchema @Autowired constructor(private val dao: SearchDao) : FieldProducer {
     override fun getFieldDefinition(): GraphQLFieldDefinition {
         return createMultiSearchField()
     }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class KeywordSchema @Autowired constructor(val dao: MovieDao): FieldProducer {
+class KeywordSchema @Autowired constructor(private val dao: MovieDao): FieldProducer {
     override fun getFieldDefinition(): GraphQLFieldDefinition {
         return GraphQLFieldDefinition.newFieldDefinition()
                 .type(GraphQLList(KeywordType().getGraphQlType()))

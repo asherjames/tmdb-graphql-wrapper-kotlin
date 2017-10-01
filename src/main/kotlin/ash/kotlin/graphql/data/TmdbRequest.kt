@@ -8,6 +8,8 @@ import com.mashape.unirest.http.Unirest
 class TmdbRequest {
     private val apiKey = ApiKey.apiKey
 
+    private val KEY_QUERY_PARAM = "api_key"
+
     fun sendRequest(tmdbUrl: TmdbUrl): HttpResponse<JsonNode> {
         return sendTmdbRequest(tmdbUrl.url)
     }
@@ -26,14 +28,14 @@ class TmdbRequest {
 
     private fun sendTmdbRequest(url: String): HttpResponse<JsonNode> {
         return Unirest.get(url)
-                .queryString("api_key", apiKey)
+                .queryString(KEY_QUERY_PARAM, apiKey)
                 .asJson()
 
     }
 
     private fun sendTmdbRequest(url: String, queryParams: Map<String, Any>): HttpResponse<JsonNode> {
         return Unirest.get(url)
-                .queryString("api_key", apiKey)
+                .queryString(KEY_QUERY_PARAM, apiKey)
                 .queryString(queryParams)
                 .asJson()
     }

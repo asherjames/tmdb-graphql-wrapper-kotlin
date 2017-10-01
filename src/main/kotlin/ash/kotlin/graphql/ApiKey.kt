@@ -1,6 +1,5 @@
 package ash.kotlin.graphql
 
-import ash.java.graphql.TmdbGqlException
 import org.slf4j.*
 import java.io.IOException
 import java.io.InputStream
@@ -12,18 +11,18 @@ object ApiKey {
         private set
 
     init {
-        try {
+        apiKey = try {
             log.info("Attempting to load API key from properties file...")
             val propertiesFile: InputStream = this.javaClass.getResourceAsStream("/apiKey.properties") ?:
                     throw TmdbGqlException("Could not find properties file!")
-            val props: Properties = Properties()
+            val props = Properties()
             props.load(propertiesFile)
-            apiKey = props.getProperty("apikey")
+            props.getProperty("apikey")
         }
         catch (e: IOException)
         {
             log.info("Attempting to load API key from environment variables...", e)
-            apiKey = System.getenv("TMDB_API_KEY") ?:
+            System.getenv("TMDB_API_KEY") ?:
                     throw TmdbGqlException("Could not load API key from environment variable!")
         }
     }
