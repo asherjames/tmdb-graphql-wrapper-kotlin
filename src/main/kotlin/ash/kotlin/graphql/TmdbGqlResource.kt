@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMethod.*
 @RestController
 class TmdbGqlResource(@Autowired private val tmdbSchema: TmdbSchema) {
 
-    @RequestMapping(method = arrayOf(GET))
+    @RequestMapping(method = [GET])
     fun getEndpoint(): String
     {
         return "GET endpoint"
     }
 
-    @RequestMapping(method = arrayOf(GET), value = "/graphql", produces = arrayOf("application/json"))
+    @RequestMapping(method = [GET], value = ["/graphql"], produces = ["application/json"])
     fun graphqlEndpoint(@RequestParam("query") query: String): Any
     {
         return tmdbSchema.executeQuery(query)
