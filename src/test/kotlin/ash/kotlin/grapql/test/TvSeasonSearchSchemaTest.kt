@@ -22,12 +22,12 @@ class TvSeasonSearchSchemaTest {
 
     @Test
     fun seasonIdIsCorrect() {
-        assertThat(getResult(seasonIdJson).get("id")).isEqualTo(JsonPrimitive(3676))
+        assertThat(getResult(seasonIdJson)["id"]).isEqualTo(JsonPrimitive(3676))
     }
 
     @Test
     fun episodeAirdatesAreCorrect() {
-        val datesJson = getResult(episodeNameJson).get("episodes")
+        val datesJson = getResult(episodeNameJson)["episodes"]
         val dates: List<TvEpisodeType> = gson.fromJson(datesJson, object : TypeToken<List<TvEpisodeType>>(){}.type)
 
         assertThat(dates).hasSize(24)
@@ -38,7 +38,7 @@ class TvSeasonSearchSchemaTest {
 
     @Test
     fun crewJobsAreCorrect() {
-        val episodes = getResult(crewJobJson).get("episodes")
+        val episodes = getResult(crewJobJson)["episodes"]
         val dates = gson.fromJson<List<TvEpisodeType_TestClass>>(episodes,
                 object : TypeToken<List<TvEpisodeType_TestClass>>(){}.type)
 
@@ -52,7 +52,7 @@ class TvSeasonSearchSchemaTest {
 
     @Test
     fun guestNameAndCrewIdAreCorrect() {
-        val episodes = getResult(guestNameCrewIdJson).get("episodes")
+        val episodes = getResult(guestNameCrewIdJson)["episodes"]
         val guestsCrew = gson.fromJson<List<TvEpisodeType_TestClass>>(episodes,
                 object : TypeToken<List<TvEpisodeType_TestClass>>(){}.type)
 
@@ -71,7 +71,7 @@ class TvSeasonSearchSchemaTest {
     }
 
     fun getResult(jsonObject: JsonObject): JsonObject {
-        return jsonObject.get("tvSeasonSearch").asJsonObject
+        return jsonObject["tvSeasonSearch"].asJsonObject
     }
 
     companion object {

@@ -13,6 +13,12 @@ import org.junit.Test
 
 class KeywordQueryTest {
 
+    private val keywordArray = "keywordList"
+
+    private val nameField = "name"
+
+    private val idField = "id"
+
     @Test
     fun correctQueryShouldNotReturnNull() {
         assertThat(resultObject).isNotNull()
@@ -20,34 +26,34 @@ class KeywordQueryTest {
 
     @Test
     fun correctQueryShouldReturnJsonArrayOfCorrectLength() {
-        assertThat(resultJson["keywordList"].asJsonArray.size()).isEqualTo(4)
+        assertThat(resultJson[keywordArray].asJsonArray.size()).isEqualTo(4)
     }
 
     @Test
     fun correctQueryShouldReturnListWithCorrectKeywords() {
-        assertThat(resultJson["keywordList"].asJsonArray[0].asJsonObject["name"])
+        assertThat(resultJson[keywordArray].asJsonArray[0].asJsonObject[nameField])
                 .isEqualTo(JsonPrimitive("elves"))
 
-        assertThat(resultJson["keywordList"].asJsonArray[0].asJsonObject["id"])
+        assertThat(resultJson[keywordArray].asJsonArray[0].asJsonObject[idField])
                 .isEqualTo(JsonPrimitive(603))
     }
 
     @Test
     fun correctIdQueryShouldReturnListWithJustIds() {
-        assertThat(resultIdJson["keywordList"].asJsonArray[3].asJsonObject["id"])
+        assertThat(resultIdJson[keywordArray].asJsonArray[3].asJsonObject[idField])
                 .isEqualTo(JsonPrimitive(10364))
 
-        assertThat(resultIdJson["keywordList"].asJsonArray[0].asJsonObject["name"])
+        assertThat(resultIdJson[keywordArray].asJsonArray[0].asJsonObject[nameField])
                 .isNull()
 
     }
 
     @Test
     fun correctNameQueryReturnsListWithJustNames() {
-        assertThat(resultNameJson["keywordList"].asJsonArray[0].asJsonObject["id"])
+        assertThat(resultNameJson[keywordArray].asJsonArray[0].asJsonObject[idField])
                 .isNull()
 
-        assertThat(resultNameJson["keywordList"].asJsonArray[2].asJsonObject["name"])
+        assertThat(resultNameJson[keywordArray].asJsonArray[2].asJsonObject[nameField])
                 .isEqualTo(JsonPrimitive("hobbit"))
     }
 

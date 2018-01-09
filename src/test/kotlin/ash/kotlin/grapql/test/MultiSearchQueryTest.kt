@@ -16,9 +16,13 @@ import org.junit.Test
 
 class MultiSearchQueryTest {
 
+    private val nameField = "name"
+
+    private val titleField = "title"
+
     @Test
     fun correctValueInPersonNameQuery() {
-        assertThat(getPeople(personNameQueryJson)["name"]).isEqualTo(JsonPrimitive("Sigourney Weaver"))
+        assertThat(getPeople(personNameQueryJson)[nameField]).isEqualTo(JsonPrimitive("Sigourney Weaver"))
     }
 
     @Test
@@ -30,7 +34,7 @@ class MultiSearchQueryTest {
 
     @Test
     fun correctValueInMovieTitleQuery() {
-        assertThat(getMovies(movieTitleQueryJson)["title"]).isEqualTo(JsonPrimitive("Das Boot"))
+        assertThat(getMovies(movieTitleQueryJson)[titleField]).isEqualTo(JsonPrimitive("Das Boot"))
     }
 
     @Test
@@ -42,7 +46,7 @@ class MultiSearchQueryTest {
 
     @Test
     fun correctValueInTvShowNameQuery() {
-        assertThat(getTvShows(tvShowNameQueryJson)["name"]).isEqualTo(JsonPrimitive("House"))
+        assertThat(getTvShows(tvShowNameQueryJson)[nameField]).isEqualTo(JsonPrimitive("House"))
     }
 
     @Test
@@ -75,21 +79,21 @@ class MultiSearchQueryTest {
         val movie = getMovies(multiTypeQueryJson)
         val genreListType = object : TypeToken<List<Int>>(){}.type
 
-        assertThat(movie.get("overview")).isEqualTo(JsonPrimitive("A German submarine hunts allied ships..."))
+        assertThat(movie["overview"]).isEqualTo(JsonPrimitive("A German submarine hunts allied ships..."))
 
-        val genreIds = gson.fromJson<List<Int>>(movie.get("genreIds"), genreListType)
+        val genreIds = gson.fromJson<List<Int>>(movie["genreIds"], genreListType)
         assertThat(genreIds).containsExactlyInAnyOrder(28, 18, 36, 10752, 12)
 
-        assertThat(movie.get("originalLanguage")).isEqualTo(JsonPrimitive("de"))
+        assertThat(movie["originalLanguage"]).isEqualTo(JsonPrimitive("de"))
     }
 
     @Test
     fun multiTypeQueryContainsCorrectTvShow() {
         val tvShow = getTvShows(multiTypeQueryJson)
 
-        assertThat(tvShow.get("popularity")).isEqualTo(JsonPrimitive(14.202559))
-        assertThat(tvShow.get("firstAirDate")).isEqualTo(JsonPrimitive("2004-11-16"))
-        assertThat(tvShow.get("originalName")).isEqualTo(JsonPrimitive("House"))
+        assertThat(tvShow["popularity"]).isEqualTo(JsonPrimitive(14.202559))
+        assertThat(tvShow["firstAirDate"]).isEqualTo(JsonPrimitive("2004-11-16"))
+        assertThat(tvShow["originalName"]).isEqualTo(JsonPrimitive("House"))
     }
 
     @Test
@@ -103,8 +107,8 @@ class MultiSearchQueryTest {
     fun nullQueryResultsInCorrectError() {
         assertThat(nullQueryJson).isNotNull
         val errorObject = nullQueryJson.get(0).asJsonObject
-        assertThat(errorObject.get("validationErrorType").asString).isEqualTo("MissingFieldArgument")
-        assertThat(errorObject.get("description").asString).isEqualTo("Missing field argument query")
+        assertThat(errorObject["validationErrorType"].asString).isEqualTo("MissingFieldArgument")
+        assertThat(errorObject["description"].asString).isEqualTo("Missing field argument query")
     }
 
     private fun getMovies(input: JsonObject): JsonObject {
@@ -120,7 +124,7 @@ class MultiSearchQueryTest {
     }
 
     private fun getResultElement(input: JsonObject, type: Int): JsonObject {
-        return input.get("multiSearch").asJsonArray.get(type).asJsonObject
+        return input["multiSearch"].asJsonArray.get(type).asJsonObject
     }
 
     companion object {

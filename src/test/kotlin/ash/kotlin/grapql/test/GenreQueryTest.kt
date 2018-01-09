@@ -13,6 +13,12 @@ import org.junit.Test
 
 class GenreQueryTest {
 
+    private val genreArray = "genres"
+
+    private val idField = "id"
+
+    private val nameField = "name"
+
     @Test
     fun correctQueryShouldNotReturnNull() {
         assertThat(resultObjectIdName).isNotNull()
@@ -20,33 +26,33 @@ class GenreQueryTest {
 
     @Test
     fun correctQueryShouldReturnCorrectNumberOfGenres() {
-        assertThat(resultJsonIdName["genres"].asJsonArray.size()).isEqualTo(3)
+        assertThat(resultJsonIdName[genreArray].asJsonArray.size()).isEqualTo(3)
     }
 
     @Test
     fun correctQueryShouldReturnListWithCorrectValues() {
-        assertThat(resultJsonIdName["genres"].asJsonArray[0].asJsonObject["id"])
+        assertThat(resultJsonIdName[genreArray].asJsonArray[0].asJsonObject[idField])
                 .isEqualTo(JsonPrimitive(28))
 
-        assertThat(resultJsonIdName["genres"].asJsonArray[0].asJsonObject["name"])
+        assertThat(resultJsonIdName[genreArray].asJsonArray[0].asJsonObject[nameField])
                 .isEqualTo(JsonPrimitive("Action"))
     }
 
     @Test
     fun correctIdQueryReturnsListWithJustIds() {
-        assertThat(resultJsonId["genres"].asJsonArray[0].asJsonObject["id"])
+        assertThat(resultJsonId[genreArray].asJsonArray[0].asJsonObject[idField])
                 .isEqualTo(JsonPrimitive(28))
 
-        assertThat(resultJsonId["genres"].asJsonArray[0].asJsonObject["name"])
+        assertThat(resultJsonId[genreArray].asJsonArray[0].asJsonObject[nameField])
                 .isNull()
     }
 
     @Test
     fun correctNameQueryReturnsListWithJustNames() {
-        assertThat(resultJsonName["genres"].asJsonArray[0].asJsonObject["id"])
+        assertThat(resultJsonName[genreArray].asJsonArray[0].asJsonObject[idField])
                 .isNull()
 
-        assertThat(resultJsonName["genres"].asJsonArray[0].asJsonObject["name"])
+        assertThat(resultJsonName[genreArray].asJsonArray[0].asJsonObject[nameField])
                 .isEqualTo(JsonPrimitive("Action"))
     }
 
