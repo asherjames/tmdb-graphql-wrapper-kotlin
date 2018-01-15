@@ -1,5 +1,7 @@
-package ash.kotlin.graphql
+package ash.kotlin.graphql.resource
 
+import ash.kotlin.graphql.TmdbSchema
+import com.codahale.metrics.annotation.Timed
 import javax.inject.Inject
 import javax.ws.rs.GET
 import javax.ws.rs.Path
@@ -17,6 +19,7 @@ class TmdbGqlResource @Inject constructor(private val tmdbSchema: TmdbSchema) {
     @GET
     @Path("/graphql")
     @Produces("application/json")
+    @Timed
     fun graphqlEndpoint(@QueryParam("query") query: String): Any
     {
         return tmdbSchema.executeQuery(query)
