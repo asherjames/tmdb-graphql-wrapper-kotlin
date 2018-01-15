@@ -7,7 +7,7 @@ class TmdbApplication : Application<AppConfig>()
 {
     override fun run(configuration: AppConfig, environment: Environment)
     {
-
+        environment.jersey().register(TmdbGqlResource::class.java)
     }
 }
 

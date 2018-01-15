@@ -1,20 +1,23 @@
 package ash.kotlin.graphql
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.*
-import org.springframework.web.bind.annotation.RequestMethod.*
+import javax.inject.Inject
+import javax.ws.rs.GET
+import javax.ws.rs.Path
+import javax.ws.rs.Produces
+import javax.ws.rs.QueryParam
 
-@RestController
-class TmdbGqlResource(@Autowired private val tmdbSchema: TmdbSchema) {
+class TmdbGqlResource @Inject constructor(private val tmdbSchema: TmdbSchema) {
 
-    @RequestMapping(method = [GET])
-    fun getEndpoint(): String
+    @GET
+    fun pingEndpoint(): String
     {
         return "GET endpoint"
     }
 
-    @RequestMapping(method = [GET], value = ["/graphql"], produces = ["application/json"])
-    fun graphqlEndpoint(@RequestParam("query") query: String): Any
+    @GET
+    @Path("/graphql")
+    @Produces("application/json")
+    fun graphqlEndpoint(@QueryParam("query") query: String): Any
     {
         return tmdbSchema.executeQuery(query)
     }
