@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class GenreSchema @Autowired constructor(private val dao: GenreDao) : FieldProducer {
-    override fun getFieldDefinition(): GraphQLFieldDefinition {
+class GenreSchema @Autowired constructor(private val dao: GenreDao) : FieldProducer
+{
+    override fun getFieldDefinition(): GraphQLFieldDefinition
+    {
         return GraphQLFieldDefinition.newFieldDefinition()
                 .type(GraphQLList(GenreType().getGraphQlType()))
                 .name("genres")

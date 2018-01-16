@@ -12,25 +12,29 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
 
-fun extractData(input: Any): JsonObject {
+fun extractData(input: Any): JsonObject
+{
     return Gson().toJsonTree(input).asJsonObject["data"].asJsonObject
 }
 
-fun extractError(input: Any): JsonArray {
+fun extractError(input: Any): JsonArray
+{
     return Gson().toJsonTree(input).asJsonObject["errors"].asJsonArray
 }
 
-fun loadTestResource(filename: String): String {
+fun loadTestResource(filename: String): String
+{
     val url = Thread.currentThread().contextClassLoader.getResource(filename)
 
     val lines: List<String>
 
     lines = Files.readAllLines(Paths.get(url.toURI()))
 
-    return lines.reduce{a, b -> a + b}
+    return lines.reduce { a, b -> a + b }
 }
 
-fun getMovie(): MovieType {
+fun getMovie(): MovieType
+{
     val movie = MovieType(387)
     movie.posterPath = "/kI1rptTkqDWj6SBRsYwguBvPViT.jpg"
     movie.adult = false
@@ -49,7 +53,8 @@ fun getMovie(): MovieType {
     return movie
 }
 
-fun getPerson(): PersonType {
+fun getPerson(): PersonType
+{
     val person = PersonType(10205)
     person.profilePath = "/wlg55BTcp3kqfTb3zDtqOFyqhDR.jpg"
     person.adult = false
@@ -60,7 +65,8 @@ fun getPerson(): PersonType {
     return person
 }
 
-fun getTvShow(): TvShowType {
+fun getTvShow(): TvShowType
+{
     val tvShowType = TvShowType(1408)
     tvShowType.posterPath = "/lxSzRZ49NXwsiyHuvMsd19QxduC.jpg"
     tvShowType.popularity = 14.202559
@@ -79,8 +85,10 @@ fun getTvShow(): TvShowType {
     return tvShowType
 }
 
-fun getTvSeason(): TvSeasonType {
-    val tvSeasonType = object : TypeToken<TvSeasonType>() {
+fun getTvSeason(): TvSeasonType
+{
+    val tvSeasonType = object : TypeToken<TvSeasonType>()
+    {
 
     }.type
     val jsonString = loadTestResource("house_season_5.json")

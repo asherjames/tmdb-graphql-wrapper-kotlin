@@ -10,14 +10,16 @@ import com.google.gson.reflect.TypeToken
 import org.springframework.stereotype.Service
 
 @Service
-class SearchDaoImpl : SearchDao {
+class SearchDaoImpl : SearchDao
+{
 
     private val RESULTS = "results"
     private val gson = Gson()
     private val parser = JsonParser()
-    private val movieSearchListType = object : TypeToken<List<MovieType>>(){}.type
+    private val movieSearchListType = object : TypeToken<List<MovieType>>() {}.type
 
-    override fun searchMoviesWithQuery(query: String): List<MovieType> {
+    override fun searchMoviesWithQuery(query: String): List<MovieType>
+    {
         val queryMap: MutableMap<String, Any> = HashMap()
         queryMap.put("query", query)
         val response = TmdbRequest().sendQueryParamRequest(TmdbQueryUrl.MOVIE_SEARCH_URL, queryMap)
@@ -27,14 +29,16 @@ class SearchDaoImpl : SearchDao {
         return gson.fromJson(searchResults, movieSearchListType)
     }
 
-    override fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType> {
+    override fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType>
+    {
         val response = TmdbRequest().sendQueryParamRequest(TmdbQueryUrl.MOVIE_SEARCH_URL, params)
         val searchResults = response.body.`object`[RESULTS].toString()
 
         return gson.fromJson(searchResults, movieSearchListType)
     }
 
-    override fun searchMultiSearch(params: Map<String, Any>): List<Any> {
+    override fun searchMultiSearch(params: Map<String, Any>): List<Any>
+    {
         val results: MutableList<Any> = ArrayList()
         val response = TmdbRequest().sendQueryParamRequest(TmdbQueryUrl.MULTI_SEARCH_URL, params)
 
@@ -44,7 +48,8 @@ class SearchDaoImpl : SearchDao {
             val jsonObject = it.asJsonObject
             val mediaType = jsonObject["media_type"].asString
 
-            when (mediaType) {
+            when (mediaType)
+            {
                 "movie" -> results.add(gson.fromJson(it, MovieType::class.java))
                 "tv" -> results.add(gson.fromJson(it, TvShowType::class.java))
                 "person" -> results.add(gson.fromJson(it, PersonType::class.java))

@@ -13,19 +13,23 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class MultiSearchSchema @Autowired constructor(private val dao: SearchDao) : FieldProducer {
-    override fun getFieldDefinition(): GraphQLFieldDefinition {
+class MultiSearchSchema @Autowired constructor(private val dao: SearchDao) : FieldProducer
+{
+    override fun getFieldDefinition(): GraphQLFieldDefinition
+    {
         return createMultiSearchField()
     }
 
-    private fun createMultisearchUnionType(): GraphQLUnionType {
+    private fun createMultisearchUnionType(): GraphQLUnionType
+    {
         return GraphQLUnionType.newUnionType()
                 .name("MultiSearchType")
                 .possibleType(PersonType().getGraphQlType())
                 .possibleType(MovieType().getGraphQlType())
                 .possibleType(TvShowType().getGraphQlType())
                 .typeResolver {
-                    when (it) {
+                    when (it)
+                    {
                         is PersonType -> PersonType().getGraphQlType()
                         is MovieType -> MovieType().getGraphQlType()
                         is TvShowType -> TvShowType().getGraphQlType()
@@ -35,7 +39,8 @@ class MultiSearchSchema @Autowired constructor(private val dao: SearchDao) : Fie
                 .build()
     }
 
-    private fun createMultiSearchField(): GraphQLFieldDefinition {
+    private fun createMultiSearchField(): GraphQLFieldDefinition
+    {
         return GraphQLFieldDefinition.newFieldDefinition()
                 .name("multiSearch")
                 .type(GraphQLList(createMultisearchUnionType()))

@@ -5,15 +5,18 @@ import ash.kotlin.graphql.types.keyword.KeywordType
 import ash.kotlin.graphql.types.movie.MovieType
 import ash.kotlin.graphql.types.tvseason.TvSeasonType
 
-interface GenreDao {
+interface GenreDao
+{
     fun getAllMovieGenres(): List<GenreType>
 }
 
-interface MovieDao {
+interface MovieDao
+{
     fun getKeywordsForMovie(movieId: Int): List<KeywordType>
 }
 
-interface SearchDao {
+interface SearchDao
+{
     fun searchMoviesWithQuery(query: String): List<MovieType>
 
     @JvmSuppressWildcards
@@ -23,6 +26,7 @@ interface SearchDao {
     fun searchMultiSearch(params: Map<String, Any>): List<Any>
 }
 
-interface TvDao {
+interface TvDao
+{
     fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
 }

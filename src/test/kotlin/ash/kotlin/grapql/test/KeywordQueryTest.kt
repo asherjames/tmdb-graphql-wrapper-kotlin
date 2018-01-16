@@ -11,7 +11,8 @@ import org.assertj.core.api.Assertions.*
 import org.junit.BeforeClass
 import org.junit.Test
 
-class KeywordQueryTest {
+class KeywordQueryTest
+{
 
     private val keywordArray = "keywordList"
 
@@ -20,17 +21,20 @@ class KeywordQueryTest {
     private val idField = "id"
 
     @Test
-    fun correctQueryShouldNotReturnNull() {
+    fun correctQueryShouldNotReturnNull()
+    {
         assertThat(resultObject).isNotNull()
     }
 
     @Test
-    fun correctQueryShouldReturnJsonArrayOfCorrectLength() {
+    fun correctQueryShouldReturnJsonArrayOfCorrectLength()
+    {
         assertThat(resultJson[keywordArray].asJsonArray.size()).isEqualTo(4)
     }
 
     @Test
-    fun correctQueryShouldReturnListWithCorrectKeywords() {
+    fun correctQueryShouldReturnListWithCorrectKeywords()
+    {
         assertThat(resultJson[keywordArray].asJsonArray[0].asJsonObject[nameField])
                 .isEqualTo(JsonPrimitive("elves"))
 
@@ -39,7 +43,8 @@ class KeywordQueryTest {
     }
 
     @Test
-    fun correctIdQueryShouldReturnListWithJustIds() {
+    fun correctIdQueryShouldReturnListWithJustIds()
+    {
         assertThat(resultIdJson[keywordArray].asJsonArray[3].asJsonObject[idField])
                 .isEqualTo(JsonPrimitive(10364))
 
@@ -49,7 +54,8 @@ class KeywordQueryTest {
     }
 
     @Test
-    fun correctNameQueryReturnsListWithJustNames() {
+    fun correctNameQueryReturnsListWithJustNames()
+    {
         assertThat(resultNameJson[keywordArray].asJsonArray[0].asJsonObject[idField])
                 .isNull()
 
@@ -57,7 +63,8 @@ class KeywordQueryTest {
                 .isEqualTo(JsonPrimitive("hobbit"))
     }
 
-    companion object {
+    companion object
+    {
 
         private lateinit var resultObject: Any
         private lateinit var resultJson: JsonObject
@@ -66,7 +73,8 @@ class KeywordQueryTest {
 
         @BeforeClass
         @JvmStatic
-        fun setupResults() {
+        fun setupResults()
+        {
             val schema = TmdbSchema(mockFields())
 
             resultObject = schema.executeQuery("{keywordList(filmId: 123){id name}}")
@@ -79,9 +87,12 @@ class KeywordQueryTest {
             resultNameJson = extractData(resultNameObject)
         }
 
-        private fun mockFields(): List<FieldProducer> {
-            class MovieDaoStub : MovieDao {
-                override fun getKeywordsForMovie(movieId: Int): List<KeywordType> {
+        private fun mockFields(): List<FieldProducer>
+        {
+            class MovieDaoStub : MovieDao
+            {
+                override fun getKeywordsForMovie(movieId: Int): List<KeywordType>
+                {
                     return listOf(
                             KeywordType(603, "elves"),
                             KeywordType(604, "dwarves"),

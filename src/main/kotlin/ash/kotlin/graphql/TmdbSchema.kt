@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class TmdbSchema @Autowired constructor(tmdbFields: List<FieldProducer>) {
+class TmdbSchema @Autowired constructor(tmdbFields: List<FieldProducer>)
+{
     private var graphQl: GraphQL
     private val log: Logger = LoggerFactory.getLogger(TmdbSchema::class.java)
 
-    init {
-        val fieldDefinitions= tmdbFields
+    init
+    {
+        val fieldDefinitions = tmdbFields
                 .map(FieldProducer::getFieldDefinition)
                 .toList()
 
@@ -31,7 +33,8 @@ class TmdbSchema @Autowired constructor(tmdbFields: List<FieldProducer>) {
         graphQl = GraphQL(tmdbSchema)
     }
 
-    fun executeQuery(query: String) : Any {
+    fun executeQuery(query: String): Any
+    {
         log.info("Executing query $query")
         return graphQl.execute(query)
     }

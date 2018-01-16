@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class MovieSearchSchema @Autowired constructor(private val dao: SearchDao) : FieldProducer {
-    override fun getFieldDefinition(): GraphQLFieldDefinition {
+class MovieSearchSchema @Autowired constructor(private val dao: SearchDao) : FieldProducer
+{
+    override fun getFieldDefinition(): GraphQLFieldDefinition
+    {
         return GraphQLFieldDefinition.newFieldDefinition()
                 .type(GraphQLList(MovieType().getGraphQlType()))
                 .name("movieSearch")

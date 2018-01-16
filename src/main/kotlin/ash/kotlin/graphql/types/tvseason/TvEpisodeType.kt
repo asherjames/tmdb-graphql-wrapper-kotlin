@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 import graphql.annotations.*
 
 @GraphQLName("TvEpisode")
-open class TvEpisodeType(id: Int = 0) : TmdbObjectType(id) {
+open class TvEpisodeType(id: Int = 0) : TmdbObjectType(id)
+{
 
     @GraphQLField
     @SerializedName("air_date")

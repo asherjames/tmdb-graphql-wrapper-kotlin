@@ -8,7 +8,8 @@ import javax.ws.rs.Path
 import javax.ws.rs.Produces
 import javax.ws.rs.QueryParam
 
-class TmdbGqlResource @Inject constructor(private val tmdbSchema: TmdbSchema) {
+class TmdbGqlResource @Inject constructor(private val tmdbSchema: TmdbSchema)
+{
 
     @GET
     fun pingEndpoint(): String

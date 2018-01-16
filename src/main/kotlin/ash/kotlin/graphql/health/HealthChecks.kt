@@ -15,7 +15,8 @@ class AppHealthCheck() : HealthCheck()
 
 class TmdbHealthCheck(private val config: AppConfig) : HealthCheck()
 {
-    override fun check(): Result {
+    override fun check(): Result
+    {
         val response = Unirest
                 .get(config.baseUrl)
                 .asString()
@@ -23,8 +24,7 @@ class TmdbHealthCheck(private val config: AppConfig) : HealthCheck()
         return if (response.status == 200)
         {
             Result.healthy()
-        }
-        else
+        } else
         {
             Result.unhealthy("Tmdb return status code ${response.status} with body ${response.body}")
         }

@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 import graphql.annotations.*
 
 @GraphQLName("Person")
-class PersonType(id:Int = 0) : TmdbObjectType(id) {
+class PersonType(id: Int = 0) : TmdbObjectType(id)
+{
     @GraphQLField
     var adult = false
 

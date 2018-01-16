@@ -8,12 +8,15 @@ import com.mashape.unirest.http.JsonNode
 import org.springframework.stereotype.Service
 
 @Service
-class MovieDaoImpl : MovieDao {
-    override fun getKeywordsForMovie(movieId: Int): List<KeywordType> {
+class MovieDaoImpl : MovieDao
+{
+    override fun getKeywordsForMovie(movieId: Int): List<KeywordType>
+    {
         val response: HttpResponse<JsonNode> = TmdbRequest().sendArgRequest(TmdbArgUrl.MOVIE_KEYWORDS_URL,
                 movieId.toString())
         val keywords: String = response.body.`object`["keywords"].toString()
 
-        return Gson().fromJson(keywords, object : TypeToken<List<KeywordType>>(){}.type)
+        return Gson().fromJson(keywords, object : TypeToken<List<KeywordType>>()
+        {}.type)
     }
 }

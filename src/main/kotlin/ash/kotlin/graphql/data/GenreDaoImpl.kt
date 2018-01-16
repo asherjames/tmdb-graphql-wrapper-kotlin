@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class GenreDaoImpl : GenreDao {
-    override fun getAllMovieGenres(): List<GenreType> {
+class GenreDaoImpl : GenreDao
+{
+    override fun getAllMovieGenres(): List<GenreType>
+    {
         val response: HttpResponse<JsonNode> = TmdbRequest().sendRequest(TmdbUrl.GENRE_LIST_URL)
         val genresString = response.body.`object`["genres"].toString()
 
-        return Gson().fromJson(genresString, object : TypeToken<List<GenreType>>(){}.type)
+        return Gson().fromJson(genresString, object : TypeToken<List<GenreType>>()
+        {}.type)
     }
 }

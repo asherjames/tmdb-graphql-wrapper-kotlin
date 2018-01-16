@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 import graphql.annotations.*
 
 @GraphQLName("Movie")
-class MovieType(id:Int = 0) : TmdbObjectType(id) {
+class MovieType(id: Int = 0) : TmdbObjectType(id)
+{
     @GraphQLField
     var title = ""
 

@@ -16,19 +16,23 @@ import org.assertj.core.api.Assertions.*
 import org.junit.BeforeClass
 import org.junit.Test
 
-class TvSeasonSearchSchemaTest {
+class TvSeasonSearchSchemaTest
+{
 
     private val gson: Gson = Gson()
 
     @Test
-    fun seasonIdIsCorrect() {
+    fun seasonIdIsCorrect()
+    {
         assertThat(getResult(seasonIdJson)["id"]).isEqualTo(JsonPrimitive(3676))
     }
 
     @Test
-    fun episodeAirdatesAreCorrect() {
+    fun episodeAirdatesAreCorrect()
+    {
         val datesJson = getResult(episodeNameJson)["episodes"]
-        val dates: List<TvEpisodeType> = gson.fromJson(datesJson, object : TypeToken<List<TvEpisodeType>>(){}.type)
+        val dates: List<TvEpisodeType> = gson.fromJson(datesJson, object : TypeToken<List<TvEpisodeType>>()
+        {}.type)
 
         assertThat(dates).hasSize(24)
 
@@ -37,10 +41,12 @@ class TvSeasonSearchSchemaTest {
     }
 
     @Test
-    fun crewJobsAreCorrect() {
+    fun crewJobsAreCorrect()
+    {
         val episodes = getResult(crewJobJson)["episodes"]
         val dates = gson.fromJson<List<TvEpisodeType_TestClass>>(episodes,
-                object : TypeToken<List<TvEpisodeType_TestClass>>(){}.type)
+                object : TypeToken<List<TvEpisodeType_TestClass>>()
+                {}.type)
 
         val jobs = dates
                 .flatMap { it.crew }
@@ -51,10 +57,12 @@ class TvSeasonSearchSchemaTest {
     }
 
     @Test
-    fun guestNameAndCrewIdAreCorrect() {
+    fun guestNameAndCrewIdAreCorrect()
+    {
         val episodes = getResult(guestNameCrewIdJson)["episodes"]
         val guestsCrew = gson.fromJson<List<TvEpisodeType_TestClass>>(episodes,
-                object : TypeToken<List<TvEpisodeType_TestClass>>(){}.type)
+                object : TypeToken<List<TvEpisodeType_TestClass>>()
+                {}.type)
 
         val ids = guestsCrew
                 .flatMap { it.crew }
@@ -70,11 +78,13 @@ class TvSeasonSearchSchemaTest {
         assertThat(names).containsSequence("Jamie Rose", "Christine Woods", "Michael Weston", "Tim Conlon", "Felicia Day")
     }
 
-    fun getResult(jsonObject: JsonObject): JsonObject {
+    fun getResult(jsonObject: JsonObject): JsonObject
+    {
         return jsonObject["tvSeasonSearch"].asJsonObject
     }
 
-    companion object {
+    companion object
+    {
         private lateinit var seasonIdJson: JsonObject
         private lateinit var episodeNameJson: JsonObject
         private lateinit var crewJobJson: JsonObject
@@ -82,7 +92,8 @@ class TvSeasonSearchSchemaTest {
 
         @BeforeClass
         @JvmStatic
-        fun setupResults() {
+        fun setupResults()
+        {
             val schema = TmdbSchema(mockFields())
 
             val seasonIdQueryResultObject = schema.executeQuery("{tvSeasonSearch(tvId: 1408, seasonNum: 5){id}}")
@@ -99,9 +110,12 @@ class TvSeasonSearchSchemaTest {
 
         }
 
-        private fun mockFields() : List<FieldProducer> {
-            class TvDaoStub : TvDao {
-                override fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType {
+        private fun mockFields(): List<FieldProducer>
+        {
+            class TvDaoStub : TvDao
+            {
+                override fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
+                {
                     return getTvSeason()
                 }
             }

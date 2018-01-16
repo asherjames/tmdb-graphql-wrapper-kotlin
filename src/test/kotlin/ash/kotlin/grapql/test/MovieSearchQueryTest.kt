@@ -13,21 +13,25 @@ import org.junit.BeforeClass
 import org.junit.Test
 import java.util.ArrayList
 
-class MovieSearchQueryTest {
+class MovieSearchQueryTest
+{
 
     @Test
-    fun correctPosterpathQueryShouldNotReturnNull() {
+    fun correctPosterpathQueryShouldNotReturnNull()
+    {
         assertThat(posterPathResultObject).isNotNull()
     }
 
     @Test
-    fun correctPosterpathQueryShouldReturnCorrectValue() {
+    fun correctPosterpathQueryShouldReturnCorrectValue()
+    {
         assertThat(posterPathResultJson["movieSearch"].asJsonArray[0].asJsonObject["posterPath"])
                 .isEqualTo(JsonPrimitive("/kI1rptTkqDWj6SBRsYwguBvPViT.jpg"))
     }
 
     @Test
-    fun correctMultipleFieldQueryReturnsAllFields() {
+    fun correctMultipleFieldQueryReturnsAllFields()
+    {
         val queryObject = multipleFieldsResultJson["movieSearch"].asJsonArray[0].asJsonObject
 
         assertThat(queryObject["releaseDate"]).isEqualTo(JsonPrimitive("1981-09-16"))
@@ -37,13 +41,15 @@ class MovieSearchQueryTest {
     }
 
     @Test
-    fun nullQueryReturnsError() {
+    fun nullQueryReturnsError()
+    {
         val errorObject = nullQueryResultJson[0].asJsonObject
 
         assertThat(errorObject["description"].asString).isEqualTo("Missing field argument query")
     }
 
-    companion object {
+    companion object
+    {
 
         private lateinit var posterPathResultObject: Any
         private lateinit var posterPathResultJson: JsonObject
@@ -52,7 +58,8 @@ class MovieSearchQueryTest {
 
         @BeforeClass
         @JvmStatic
-        fun setupResults() {
+        fun setupResults()
+        {
             val schema = TmdbSchema(mockFields())
 
             posterPathResultObject = schema.executeQuery("{movieSearch(query: \"Das Boot\"){posterPath}}")
@@ -65,17 +72,22 @@ class MovieSearchQueryTest {
             nullQueryResultJson = extractError(nullQueryResultObject)
         }
 
-        private fun mockFields(): List<FieldProducer> {
-            class SearchDaoStub : SearchDao {
-                override fun searchMoviesWithQuery(query: String): List<MovieType> {
+        private fun mockFields(): List<FieldProducer>
+        {
+            class SearchDaoStub : SearchDao
+            {
+                override fun searchMoviesWithQuery(query: String): List<MovieType>
+                {
                     return ArrayList()
                 }
 
-                override fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType> {
+                override fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType>
+                {
                     return listOf(getMovie())
                 }
 
-                override fun searchMultiSearch(params: Map<String, Any>): List<Any> {
+                override fun searchMultiSearch(params: Map<String, Any>): List<Any>
+                {
                     return ArrayList()
                 }
             }
