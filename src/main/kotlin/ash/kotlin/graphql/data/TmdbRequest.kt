@@ -1,13 +1,12 @@
 package ash.kotlin.graphql.data
 
-import ash.kotlin.graphql.ApiKey
 import com.mashape.unirest.http.HttpResponse
 import com.mashape.unirest.http.JsonNode
 import com.mashape.unirest.http.Unirest
 
 class TmdbRequest
 {
-    private val apiKey = ApiKey.apiKey
+    private val apiKey = ""
 
     private val KEY_QUERY_PARAM = "api_key"
 
