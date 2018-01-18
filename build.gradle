@@ -1,6 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '1.5.2.RELEASE'
-    id 'org.jetbrains.kotlin.jvm' version '1.2.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.2.20'
 }
 
 group 'ash.kotlin'
@@ -34,7 +34,7 @@ dependencies {
     compile group: 'com.graphql-java', name: 'graphql-java-annotations', version: '0.13.1'
     compile group: 'com.mashape.unirest', name: 'unirest-java', version: '1.4.9'
     compile group: 'io.dropwizard', name: 'dropwizard-core', version: '1.2.2'
-    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.2.10'
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib'
     compile group: 'org.json', name: 'json', version: '20160810'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.6.RELEASE'
 
