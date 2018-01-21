@@ -5,11 +5,8 @@ import ash.kotlin.graphql.types.tvseason.TvSeasonType
 import graphql.Scalars
 import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLNonNull
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
-@Service
-class TvSeasonSearchSchema @Autowired constructor(private val dao: TvDao) : FieldProducer
+class TvSeasonSearchSchema constructor(private val dao: TvDao) : FieldProducer
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {

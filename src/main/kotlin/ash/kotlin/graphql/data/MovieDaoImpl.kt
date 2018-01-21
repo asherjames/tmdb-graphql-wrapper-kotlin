@@ -5,9 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mashape.unirest.http.HttpResponse
 import com.mashape.unirest.http.JsonNode
-import org.springframework.stereotype.Service
 
-@Service
 class MovieDaoImpl : MovieDao
 {
     override fun getKeywordsForMovie(movieId: Int): List<KeywordType>

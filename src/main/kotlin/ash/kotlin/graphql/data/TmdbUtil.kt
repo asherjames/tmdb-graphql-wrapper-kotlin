@@ -16,7 +16,9 @@ import com.github.kittinunf.result.Result
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class TmdbUtil @Inject constructor(config: AppConfig)
 {
     init

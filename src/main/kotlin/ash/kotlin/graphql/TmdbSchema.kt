@@ -6,11 +6,9 @@ import graphql.schema.GraphQLObjectType
 import graphql.schema.GraphQLSchema
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
+import javax.inject.Inject
 
-@Service
-class TmdbSchema @Autowired constructor(tmdbFields: List<FieldProducer>)
+class TmdbSchema @Inject constructor(tmdbFields: List<FieldProducer>)
 {
     private var graphQl: GraphQL
     private val log: Logger = LoggerFactory.getLogger(TmdbSchema::class.java)

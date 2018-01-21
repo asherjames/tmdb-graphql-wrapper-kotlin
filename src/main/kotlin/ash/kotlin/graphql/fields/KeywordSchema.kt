@@ -5,11 +5,8 @@ import ash.kotlin.graphql.types.keyword.KeywordType
 import graphql.Scalars
 import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLList
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
-@Service
-class KeywordSchema @Autowired constructor(private val dao: MovieDao) : FieldProducer
+class KeywordSchema constructor(private val dao: MovieDao) : FieldProducer
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {

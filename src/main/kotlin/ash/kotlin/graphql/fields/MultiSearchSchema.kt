@@ -9,11 +9,8 @@ import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLList
 import graphql.schema.GraphQLNonNull
 import graphql.schema.GraphQLUnionType
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
-@Service
-class MultiSearchSchema @Autowired constructor(private val dao: SearchDao) : FieldProducer
+class MultiSearchSchema constructor(private val dao: SearchDao) : FieldProducer
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {

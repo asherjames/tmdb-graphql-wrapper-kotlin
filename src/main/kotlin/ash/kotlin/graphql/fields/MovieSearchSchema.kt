@@ -4,12 +4,8 @@ import ash.kotlin.graphql.data.SearchDao
 import ash.kotlin.graphql.types.movie.MovieType
 import graphql.Scalars.*
 import graphql.schema.*
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
-
-@Service
-class MovieSearchSchema @Autowired constructor(private val dao: SearchDao) : FieldProducer
+class MovieSearchSchema constructor(private val dao: SearchDao) : FieldProducer
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {
