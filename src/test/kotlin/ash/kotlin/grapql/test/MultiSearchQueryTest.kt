@@ -2,7 +2,7 @@ package ash.kotlin.grapql.test
 
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.SearchDao
-import ash.kotlin.graphql.fields.FieldProducer
+import ash.kotlin.graphql.fields.FieldDefiner
 import ash.kotlin.graphql.fields.MultiSearchSchema
 import ash.kotlin.graphql.types.movie.MovieType
 import org.assertj.core.api.Assertions.*
@@ -194,7 +194,7 @@ class MultiSearchQueryTest
             nullQueryJson = extractError(nullQueryResultObject)
         }
 
-        private fun mockFields(): List<FieldProducer>
+        private fun mockFields(): List<FieldDefiner>
         {
             class SearchDaoStub : SearchDao
             {

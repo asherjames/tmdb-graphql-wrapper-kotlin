@@ -6,7 +6,7 @@ import graphql.Scalars
 import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLList
 
-class KeywordSchema constructor(private val dao: MovieDao) : FieldProducer
+class MovieKeywordFieldDefinition constructor(private val dao: MovieDao) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {

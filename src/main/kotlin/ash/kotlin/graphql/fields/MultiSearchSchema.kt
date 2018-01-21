@@ -10,7 +10,7 @@ import graphql.schema.GraphQLList
 import graphql.schema.GraphQLNonNull
 import graphql.schema.GraphQLUnionType
 
-class MultiSearchSchema constructor(private val dao: SearchDao) : FieldProducer
+class MultiSearchSchema constructor(private val dao: SearchDao) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {

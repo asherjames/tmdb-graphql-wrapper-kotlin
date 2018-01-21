@@ -2,8 +2,8 @@ package ash.kotlin.grapql.test
 
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.SearchDao
-import ash.kotlin.graphql.fields.FieldProducer
-import ash.kotlin.graphql.fields.MovieSearchSchema
+import ash.kotlin.graphql.fields.FieldDefiner
+import ash.kotlin.graphql.fields.MovieSearchFieldDefinition
 import ash.kotlin.graphql.types.movie.MovieType
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -72,7 +72,7 @@ class MovieSearchQueryTest
             nullQueryResultJson = extractError(nullQueryResultObject)
         }
 
-        private fun mockFields(): List<FieldProducer>
+        private fun mockFields(): List<FieldDefiner>
         {
             class SearchDaoStub : SearchDao
             {
@@ -92,7 +92,7 @@ class MovieSearchQueryTest
                 }
             }
 
-            return listOf(MovieSearchSchema(SearchDaoStub()))
+            return listOf(MovieSearchFieldDefinition(SearchDaoStub()))
         }
     }
 }

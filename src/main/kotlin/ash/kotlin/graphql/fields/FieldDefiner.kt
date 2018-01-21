@@ -2,6 +2,7 @@ package ash.kotlin.graphql.fields
 
 import graphql.schema.GraphQLFieldDefinition
 
-interface FieldProducer {
+interface FieldDefiner
+{
     fun getFieldDefinition(): GraphQLFieldDefinition
 }

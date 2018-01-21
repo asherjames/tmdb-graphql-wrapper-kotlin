@@ -2,8 +2,8 @@ package ash.kotlin.grapql.test
 
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.GenreDao
-import ash.kotlin.graphql.fields.FieldProducer
-import ash.kotlin.graphql.fields.GenreSchema
+import ash.kotlin.graphql.fields.FieldDefiner
+import ash.kotlin.graphql.fields.GenreFieldDefinition
 import ash.kotlin.graphql.types.genre.GenreType
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
@@ -85,7 +85,7 @@ class GenreQueryTest
             resultJsonName = extractData(resultObjectName)
         }
 
-        fun mockFields(): List<FieldProducer>
+        fun mockFields(): List<FieldDefiner>
         {
             class GenreDaoStub : GenreDao
             {
@@ -98,7 +98,7 @@ class GenreQueryTest
                 }
             }
 
-            return listOf(GenreSchema(GenreDaoStub()))
+            return listOf(GenreFieldDefinition(GenreDaoStub()))
         }
     }
 }

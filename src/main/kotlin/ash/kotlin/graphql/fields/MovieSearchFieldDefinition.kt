@@ -5,7 +5,7 @@ import ash.kotlin.graphql.types.movie.MovieType
 import graphql.Scalars.*
 import graphql.schema.*
 
-class MovieSearchSchema constructor(private val dao: SearchDao) : FieldProducer
+class MovieSearchFieldDefinition constructor(private val dao: SearchDao) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {

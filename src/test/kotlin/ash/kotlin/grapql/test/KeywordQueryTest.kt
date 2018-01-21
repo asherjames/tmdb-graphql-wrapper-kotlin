@@ -2,8 +2,8 @@ package ash.kotlin.grapql.test
 
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.MovieDao
-import ash.kotlin.graphql.fields.FieldProducer
-import ash.kotlin.graphql.fields.KeywordSchema
+import ash.kotlin.graphql.fields.FieldDefiner
+import ash.kotlin.graphql.fields.MovieKeywordFieldDefinition
 import ash.kotlin.graphql.types.keyword.KeywordType
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
@@ -87,7 +87,7 @@ class KeywordQueryTest
             resultNameJson = extractData(resultNameObject)
         }
 
-        private fun mockFields(): List<FieldProducer>
+        private fun mockFields(): List<FieldDefiner>
         {
             class MovieDaoStub : MovieDao
             {
@@ -102,7 +102,7 @@ class KeywordQueryTest
                 }
             }
 
-            return listOf(KeywordSchema(MovieDaoStub()))
+            return listOf(MovieKeywordFieldDefinition(MovieDaoStub()))
         }
     }
 }

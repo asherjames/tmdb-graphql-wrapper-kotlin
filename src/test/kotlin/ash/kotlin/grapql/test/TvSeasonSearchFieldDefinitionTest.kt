@@ -2,8 +2,8 @@ package ash.kotlin.grapql.test
 
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.TvDao
-import ash.kotlin.graphql.fields.FieldProducer
-import ash.kotlin.graphql.fields.TvSeasonSearchSchema
+import ash.kotlin.graphql.fields.FieldDefiner
+import ash.kotlin.graphql.fields.TvSeasonSearchFieldDefinition
 import ash.kotlin.graphql.types.tvseason.TvEpisodeType
 import ash.kotlin.graphql.types.tvseason.TvGuestStarType
 import ash.kotlin.graphql.types.tvseason.TvSeasonType
@@ -16,7 +16,7 @@ import org.assertj.core.api.Assertions.*
 import org.junit.BeforeClass
 import org.junit.Test
 
-class TvSeasonSearchSchemaTest
+class TvSeasonSearchFieldDefinitionTest
 {
 
     private val gson: Gson = Gson()
@@ -110,7 +110,7 @@ class TvSeasonSearchSchemaTest
 
         }
 
-        private fun mockFields(): List<FieldProducer>
+        private fun mockFields(): List<FieldDefiner>
         {
             class TvDaoStub : TvDao
             {
@@ -120,7 +120,7 @@ class TvSeasonSearchSchemaTest
                 }
             }
 
-            return listOf(TvSeasonSearchSchema(TvDaoStub()))
+            return listOf(TvSeasonSearchFieldDefinition(TvDaoStub()))
         }
     }
 

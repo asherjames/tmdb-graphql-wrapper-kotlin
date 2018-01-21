@@ -1,6 +1,6 @@
 package ash.kotlin.graphql
 
-import ash.kotlin.graphql.fields.FieldProducer
+import ash.kotlin.graphql.fields.FieldDefiner
 import graphql.GraphQL
 import graphql.schema.GraphQLObjectType
 import graphql.schema.GraphQLSchema
@@ -8,7 +8,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
 
-class TmdbSchema @Inject constructor(tmdbFields: List<FieldProducer>)
+class TmdbSchema @Inject constructor(tmdbFields: List<FieldDefiner>)
 {
     private var graphQl: GraphQL
     private val log: Logger = LoggerFactory.getLogger(TmdbSchema::class.java)
@@ -16,7 +16,7 @@ class TmdbSchema @Inject constructor(tmdbFields: List<FieldProducer>)
     init
     {
         val fieldDefinitions = tmdbFields
-                .map(FieldProducer::getFieldDefinition)
+                .map(FieldDefiner::getFieldDefinition)
                 .toList()
 
         val queryType = GraphQLObjectType.newObject()

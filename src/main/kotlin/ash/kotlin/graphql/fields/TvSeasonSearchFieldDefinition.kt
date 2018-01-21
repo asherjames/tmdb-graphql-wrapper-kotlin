@@ -6,7 +6,7 @@ import graphql.Scalars
 import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLNonNull
 
-class TvSeasonSearchSchema constructor(private val dao: TvDao) : FieldProducer
+class TvSeasonSearchFieldDefinition constructor(private val dao: TvDao) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {
