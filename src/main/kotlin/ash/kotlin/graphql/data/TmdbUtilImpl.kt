@@ -15,43 +15,43 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
 import com.google.gson.JsonParser
+import org.jvnet.hk2.annotations.Service
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class TmdbUtil @Inject constructor(config: AppConfig)
+@Service
+class TmdbUtilImpl @Inject constructor(config: AppConfig) : TmdbUtil
 {
     init
     {
         FuelManager.instance.basePath = config.baseUrl
     }
 
-    fun getGenreList(): List<GenreType>
+    override fun getGenreList(): List<GenreType>
     {
         return sendListRequest("/genre/movie/list")
     }
 
-    fun getMovieKeywords(movieId: Int): List<KeywordType>
+    override fun getMovieKeywords(movieId: Int): List<KeywordType>
     {
         return sendListRequest("/movie/$movieId/keywords")
     }
 
-    fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
+    override fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
     {
         return sendRequest("/tv/$tvShowId/season/$seasonNumber") ?: TvSeasonType()
     }
 
-    fun searchMoviesWithQuery(query: String): List<MovieType>
+    override fun searchMoviesWithQuery(query: String): List<MovieType>
     {
         return sendListRequest("/search/movie", listOf(query to "query"))
     }
 
-    fun searchMoviesWithMultipleParameters(params: List<Pair<String, Any?>>): List<MovieType>
+    override fun searchMoviesWithMultipleParameters(params: List<Pair<String, Any?>>): List<MovieType>
     {
         return sendListRequest("/search/movie", params)
     }
 
-    fun searchMulti(params: List<Pair<String, Any?>>): List<Any>
+    override fun searchMulti(params: List<Pair<String, Any?>>): List<Any>
     {
         var data = emptyList<Any>()
 

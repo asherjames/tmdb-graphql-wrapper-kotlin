@@ -1,13 +1,13 @@
 package ash.kotlin.graphql.fields
 
-import ash.kotlin.graphql.data.TmdbUtil
+import ash.kotlin.graphql.data.TmdbUtilImpl
 import ash.kotlin.graphql.types.tvseason.TvSeasonType
 import graphql.Scalars
 import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLNonNull
 import javax.inject.Inject
 
-class TvSeasonSearchFieldDefinition @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
+class TvSeasonSearchFieldDefinition(@Inject private val tmdbUtil: TmdbUtilImpl) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {

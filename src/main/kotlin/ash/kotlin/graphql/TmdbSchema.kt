@@ -4,11 +4,14 @@ import ash.kotlin.graphql.fields.FieldDefiner
 import graphql.GraphQL
 import graphql.schema.GraphQLObjectType
 import graphql.schema.GraphQLSchema
+import org.glassfish.hk2.api.IterableProvider
+import org.jvnet.hk2.annotations.Service
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
 
-class TmdbSchema @Inject constructor(tmdbFields: List<FieldDefiner>)
+@Service
+class TmdbSchema(@Inject private val tmdbFields: IterableProvider<FieldDefiner>)
 {
     private var graphQl: GraphQL
     private val log: Logger = LoggerFactory.getLogger(TmdbSchema::class.java)

@@ -1,12 +1,12 @@
 package ash.kotlin.graphql.fields
 
-import ash.kotlin.graphql.data.TmdbUtil
+import ash.kotlin.graphql.data.TmdbUtilImpl
 import ash.kotlin.graphql.types.movie.MovieType
 import graphql.Scalars.*
 import graphql.schema.*
 import javax.inject.Inject
 
-class MovieSearchFieldDefinition @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
+class MovieSearchFieldDefinition(@Inject private val tmdbUtil: TmdbUtilImpl) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {
