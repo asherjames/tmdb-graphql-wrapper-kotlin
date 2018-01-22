@@ -1,6 +1,6 @@
 package ash.kotlin.graphql.fields
 
-import ash.kotlin.graphql.data.SearchDao
+import ash.kotlin.graphql.data.TmdbUtil
 import ash.kotlin.graphql.types.movie.MovieType
 import ash.kotlin.graphql.types.multisearch.PersonType
 import ash.kotlin.graphql.types.multisearch.TvShowType
@@ -9,8 +9,9 @@ import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLList
 import graphql.schema.GraphQLNonNull
 import graphql.schema.GraphQLUnionType
+import javax.inject.Inject
 
-class MultiSearchSchema constructor(private val dao: SearchDao) : FieldDefiner
+class MultiSearchSchema @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {
@@ -46,7 +47,7 @@ class MultiSearchSchema constructor(private val dao: SearchDao) : FieldDefiner
                 .argument { arg -> arg.name("page").type(GraphQLInt) }
                 .argument { arg -> arg.name("include_adult").type(GraphQLBoolean) }
                 .argument { arg -> arg.name("region").type(GraphQLString) }
-                .dataFetcher { env -> dao.searchMultiSearch(env.arguments) }
+                .dataFetcher { env -> tmdbUtil.searchMulti(env.arguments.toList()) }
                 .build()
     }
 }

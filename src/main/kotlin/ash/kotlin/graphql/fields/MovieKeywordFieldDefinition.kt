@@ -1,12 +1,12 @@
 package ash.kotlin.graphql.fields
 
-import ash.kotlin.graphql.data.MovieDao
+import ash.kotlin.graphql.data.TmdbUtil
 import ash.kotlin.graphql.types.keyword.KeywordType
 import graphql.Scalars
 import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLList
 
-class MovieKeywordFieldDefinition constructor(private val dao: MovieDao) : FieldDefiner
+class MovieKeywordFieldDefinition constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {
@@ -14,7 +14,7 @@ class MovieKeywordFieldDefinition constructor(private val dao: MovieDao) : Field
                 .type(GraphQLList(KeywordType().getGraphQlType()))
                 .name("keywordList")
                 .argument { arg -> arg.name("filmId").type(Scalars.GraphQLInt) }
-                .dataFetcher { env -> dao.getKeywordsForMovie(env.getArgument("filmId")) }
+                .dataFetcher { env -> tmdbUtil.searchMoviesWithQuery(env.getArgument("filmId")) }
                 .build()
     }
 }

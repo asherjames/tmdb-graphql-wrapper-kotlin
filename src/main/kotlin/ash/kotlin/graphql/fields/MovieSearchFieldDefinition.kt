@@ -1,11 +1,12 @@
 package ash.kotlin.graphql.fields
 
-import ash.kotlin.graphql.data.SearchDao
+import ash.kotlin.graphql.data.TmdbUtil
 import ash.kotlin.graphql.types.movie.MovieType
 import graphql.Scalars.*
 import graphql.schema.*
+import javax.inject.Inject
 
-class MovieSearchFieldDefinition constructor(private val dao: SearchDao) : FieldDefiner
+class MovieSearchFieldDefinition @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {
@@ -19,7 +20,7 @@ class MovieSearchFieldDefinition constructor(private val dao: SearchDao) : Field
                 .argument { arg -> arg.name("region").type(GraphQLString) }
                 .argument { arg -> arg.name("year").type(GraphQLInt) }
                 .argument { arg -> arg.name("primaryReleaseYear").type(GraphQLInt) }
-                .dataFetcher { env -> dao.searchMoviesWithMultipleParameters(env.arguments) }
+                .dataFetcher { env -> tmdbUtil.searchMoviesWithMultipleParameters(env.arguments.toList()) }
                 .build()
     }
 }

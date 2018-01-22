@@ -1,12 +1,13 @@
 package ash.kotlin.graphql.fields
 
-import ash.kotlin.graphql.data.TvDao
+import ash.kotlin.graphql.data.TmdbUtil
 import ash.kotlin.graphql.types.tvseason.TvSeasonType
 import graphql.Scalars
 import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLNonNull
+import javax.inject.Inject
 
-class TvSeasonSearchFieldDefinition constructor(private val dao: TvDao) : FieldDefiner
+class TvSeasonSearchFieldDefinition @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
 {
     override fun getFieldDefinition(): GraphQLFieldDefinition
     {
@@ -15,7 +16,9 @@ class TvSeasonSearchFieldDefinition constructor(private val dao: TvDao) : FieldD
                 .name("tvSeasonSearch")
                 .argument { arg -> arg.name("tvId").type(GraphQLNonNull(Scalars.GraphQLInt)) }
                 .argument { arg -> arg.name("seasonNum").type(GraphQLNonNull(Scalars.GraphQLInt)) }
-                .dataFetcher { env -> dao.getTvSeason(env.getArgument("tvId"), env.getArgument("seasonNum")) }
+                .dataFetcher { env ->
+                    tmdbUtil.getTvSeason(env.getArgument("tvId"), env.getArgument("seasonNum"))
+                }
                 .build()
     }
 }
