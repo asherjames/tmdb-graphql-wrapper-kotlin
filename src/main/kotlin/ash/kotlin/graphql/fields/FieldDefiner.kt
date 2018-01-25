@@ -4,5 +4,5 @@ import graphql.schema.GraphQLFieldDefinition
 
 interface FieldDefiner
 {
-    fun getFieldDefinition(): GraphQLFieldDefinition
+  fun getFieldDefinition(): GraphQLFieldDefinition
 }

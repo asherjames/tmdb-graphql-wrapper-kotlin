@@ -1,104 +1,105 @@
 package ash.kotlin.grapql.test
 
 import ash.kotlin.graphql.TmdbSchema
-import ash.kotlin.graphql.data.GenreDao
-import ash.kotlin.graphql.fields.FieldDefiner
+import ash.kotlin.graphql.data.TmdbUtil
 import ash.kotlin.graphql.fields.GenreFieldDefinition
 import ash.kotlin.graphql.types.genre.GenreType
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import org.assertj.core.api.Assertions.*
-import org.junit.BeforeClass
+import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner.Silent::class)
 class GenreQueryTest
 {
+  private val genreArray = "genres"
 
-    private val genreArray = "genres"
+  private val idField = "id"
 
-    private val idField = "id"
+  private val nameField = "name"
 
-    private val nameField = "name"
+  private lateinit var resultObjectIdName: Any
+  private lateinit var resultJsonIdName: JsonObject
+  private lateinit var resultJsonId: JsonObject
+  private lateinit var resultJsonName: JsonObject
 
-    @Test
-    fun correctQueryShouldNotReturnNull()
-    {
-        assertThat(resultObjectIdName).isNotNull()
-    }
+  @Mock
+  private lateinit var tmdbutil: TmdbUtil
 
-    @Test
-    fun correctQueryShouldReturnCorrectNumberOfGenres()
-    {
-        assertThat(resultJsonIdName[genreArray].asJsonArray.size()).isEqualTo(3)
-    }
+  @InjectMocks
+  private lateinit var fieldDefinition: GenreFieldDefinition
 
-    @Test
-    fun correctQueryShouldReturnListWithCorrectValues()
-    {
-        assertThat(resultJsonIdName[genreArray].asJsonArray[0].asJsonObject[idField])
-                .isEqualTo(JsonPrimitive(28))
+  @Before
+  fun setupResults()
+  {
+    setupMock()
 
-        assertThat(resultJsonIdName[genreArray].asJsonArray[0].asJsonObject[nameField])
-                .isEqualTo(JsonPrimitive("Action"))
-    }
+    val schema = TmdbSchema(listOf(fieldDefinition))
 
-    @Test
-    fun correctIdQueryReturnsListWithJustIds()
-    {
-        assertThat(resultJsonId[genreArray].asJsonArray[0].asJsonObject[idField])
-                .isEqualTo(JsonPrimitive(28))
+    resultObjectIdName = schema.executeQuery("{genres{id name}}")
+    resultJsonIdName = extractData(resultObjectIdName)
 
-        assertThat(resultJsonId[genreArray].asJsonArray[0].asJsonObject[nameField])
-                .isNull()
-    }
+    val resultObjectId = schema.executeQuery("{genres{id}}")
+    resultJsonId = extractData(resultObjectId)
 
-    @Test
-    fun correctNameQueryReturnsListWithJustNames()
-    {
-        assertThat(resultJsonName[genreArray].asJsonArray[0].asJsonObject[idField])
-                .isNull()
+    val resultObjectName = schema.executeQuery("{genres{name}}")
+    resultJsonName = extractData(resultObjectName)
+  }
 
-        assertThat(resultJsonName[genreArray].asJsonArray[0].asJsonObject[nameField])
-                .isEqualTo(JsonPrimitive("Action"))
-    }
+  @Test
+  fun correctQueryShouldNotReturnNull()
+  {
+    assertThat(resultObjectIdName).isNotNull()
+  }
 
-    companion object
-    {
-        private lateinit var resultObjectIdName: Any
-        private lateinit var resultJsonIdName: JsonObject
-        private lateinit var resultJsonId: JsonObject
-        private lateinit var resultJsonName: JsonObject
+  @Test
+  fun correctQueryShouldReturnCorrectNumberOfGenres()
+  {
+    assertThat(resultJsonIdName[genreArray].asJsonArray.size()).isEqualTo(3)
+  }
 
-        @BeforeClass
-        @JvmStatic
-        fun setupResults()
-        {
-            val schema = TmdbSchema(mockFields())
+  @Test
+  fun correctQueryShouldReturnListWithCorrectValues()
+  {
+    assertThat(resultJsonIdName[genreArray].asJsonArray[0].asJsonObject[idField])
+        .isEqualTo(JsonPrimitive(28))
 
-            resultObjectIdName = schema.executeQuery("{genres{id name}}")
-            resultJsonIdName = extractData(resultObjectIdName)
+    assertThat(resultJsonIdName[genreArray].asJsonArray[0].asJsonObject[nameField])
+        .isEqualTo(JsonPrimitive("Action"))
+  }
 
-            val resultObjectId = schema.executeQuery("{genres{id}}")
-            resultJsonId = extractData(resultObjectId)
+  @Test
+  fun correctIdQueryReturnsListWithJustIds()
+  {
+    assertThat(resultJsonId[genreArray].asJsonArray[0].asJsonObject[idField])
+        .isEqualTo(JsonPrimitive(28))
 
-            val resultObjectName = schema.executeQuery("{genres{name}}")
-            resultJsonName = extractData(resultObjectName)
-        }
+    assertThat(resultJsonId[genreArray].asJsonArray[0].asJsonObject[nameField])
+        .isNull()
+  }
 
-        fun mockFields(): List<FieldDefiner>
-        {
-            class GenreDaoStub : GenreDao
-            {
-                override fun getAllMovieGenres(): List<GenreType>
-                {
-                    return listOf(
-                            GenreType(28, "Action"),
-                            GenreType(35, "Comedy"),
-                            GenreType(12, "Fantasy"))
-                }
-            }
+  @Test
+  fun correctNameQueryReturnsListWithJustNames()
+  {
+    assertThat(resultJsonName[genreArray].asJsonArray[0].asJsonObject[idField])
+        .isNull()
 
-            return listOf(GenreFieldDefinition(GenreDaoStub()))
-        }
-    }
+    assertThat(resultJsonName[genreArray].asJsonArray[0].asJsonObject[nameField])
+        .isEqualTo(JsonPrimitive("Action"))
+  }
+
+  private fun setupMock()
+  {
+    `when`(tmdbutil.getGenreList()).thenReturn(listOf(
+        GenreType(28, "Action"),
+        GenreType(35, "Comedy"),
+        GenreType(12, "Fantasy"))
+    )
+  }
 }

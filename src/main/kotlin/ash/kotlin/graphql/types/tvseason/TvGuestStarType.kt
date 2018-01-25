@@ -6,9 +6,9 @@ import graphql.annotations.*
 class TvGuestStarType(id: Int) : TvPersonType(id)
 {
 
-    @GraphQLField
-    var character = ""
+  @GraphQLField
+  var character = ""
 
-    @GraphQLField
-    var order = 0
+  @GraphQLField
+  var order = 0
 }

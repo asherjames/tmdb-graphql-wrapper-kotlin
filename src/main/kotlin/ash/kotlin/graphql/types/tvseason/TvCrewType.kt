@@ -6,9 +6,9 @@ import graphql.annotations.*
 class TvCrewType(id: Int = 0) : TvPersonType(id)
 {
 
-    @GraphQLField
-    var department = ""
+  @GraphQLField
+  var department = ""
 
-    @GraphQLField
-    var job = ""
+  @GraphQLField
+  var job = ""
 }

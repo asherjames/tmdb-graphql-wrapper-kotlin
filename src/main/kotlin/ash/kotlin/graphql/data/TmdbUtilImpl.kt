@@ -21,103 +21,103 @@ import javax.inject.Inject
 @Service
 class TmdbUtilImpl @Inject constructor(config: AppConfig) : TmdbUtil
 {
-    init
-    {
-        FuelManager.instance.basePath = config.baseUrl
+  init
+  {
+    FuelManager.instance.basePath = config.baseUrl
+  }
+
+  override fun getGenreList(): List<GenreType>
+  {
+    return sendListRequest("/genre/movie/list")
+  }
+
+  override fun getMovieKeywords(movieId: Int): List<KeywordType>
+  {
+    return sendListRequest("/movie/$movieId/keywords")
+  }
+
+  override fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
+  {
+    return sendRequest("/tv/$tvShowId/season/$seasonNumber") ?: TvSeasonType()
+  }
+
+  override fun searchMoviesWithQuery(query: String): List<MovieType>
+  {
+    return sendListRequest("/search/movie", listOf(query to "query"))
+  }
+
+  override fun searchMoviesWithMultipleParameters(params: List<Pair<String, Any?>>): List<MovieType>
+  {
+    return sendListRequest("/search/movie", params)
+  }
+
+  override fun searchMulti(params: List<Pair<String, Any?>>): List<Any>
+  {
+    var data = emptyList<Any>()
+
+    "/search/multi".httpGet(params).responseObject(MultiDeserializer()) { _, _, result ->
+      when (result)
+      {
+        is Result.Failure -> throw TmdbGqlException(result.error)
+        is Result.Success -> data = result.get()
+      }
     }
 
-    override fun getGenreList(): List<GenreType>
+    return data
+  }
+
+  private class MultiDeserializer : ResponseDeserializable<List<Any>>
+  {
+    override fun deserialize(content: String): List<Any>?
     {
-        return sendListRequest("/genre/movie/list")
-    }
+      val gson = Gson()
+      val objectList = mutableListOf<Any>()
 
-    override fun getMovieKeywords(movieId: Int): List<KeywordType>
-    {
-        return sendListRequest("/movie/$movieId/keywords")
-    }
+      val responseJson = JsonParser().parse(content).asJsonObject["results"].asJsonArray
 
-    override fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
-    {
-        return sendRequest("/tv/$tvShowId/season/$seasonNumber") ?: TvSeasonType()
-    }
+      responseJson.forEach {
+        val jsonObject = it.asJsonObject
+        val mediaType = jsonObject["media_type"].asString
 
-    override fun searchMoviesWithQuery(query: String): List<MovieType>
-    {
-        return sendListRequest("/search/movie", listOf(query to "query"))
-    }
-
-    override fun searchMoviesWithMultipleParameters(params: List<Pair<String, Any?>>): List<MovieType>
-    {
-        return sendListRequest("/search/movie", params)
-    }
-
-    override fun searchMulti(params: List<Pair<String, Any?>>): List<Any>
-    {
-        var data = emptyList<Any>()
-
-        "/search/multi".httpGet(params).responseObject(MultiDeserializer()) {_, _, result ->
-            when (result)
-            {
-                is Result.Failure -> throw TmdbGqlException(result.error)
-                is Result.Success -> data = result.get()
-            }
-        }
-
-        return data
-    }
-
-    private class MultiDeserializer : ResponseDeserializable<List<Any>>
-    {
-        override fun deserialize(content: String): List<Any>?
+        when (mediaType)
         {
-            val gson = Gson()
-            val objectList = mutableListOf<Any>()
-
-            val responseJson = JsonParser().parse(content).asJsonObject["results"].asJsonArray
-
-            responseJson.forEach {
-                val jsonObject = it.asJsonObject
-                val mediaType = jsonObject["media_type"].asString
-
-                when (mediaType)
-                {
-                    "movie" -> objectList.add(gson.fromJson(it, MovieType::class.java))
-                    "tv" -> objectList.add(gson.fromJson(it, TvShowType::class.java))
-                    "person" -> objectList.add(gson.fromJson(it, PersonType::class.java))
-                }
-            }
-
-            return objectList
+          "movie" -> objectList.add(gson.fromJson(it, MovieType::class.java))
+          "tv" -> objectList.add(gson.fromJson(it, TvShowType::class.java))
+          "person" -> objectList.add(gson.fromJson(it, PersonType::class.java))
         }
+      }
+
+      return objectList
+    }
+  }
+
+  private inline fun <reified T : Any> sendRequest(url: String): T?
+  {
+    var data: T? = null
+
+    url.httpGet().responseObject<T> { _, _, result ->
+      when (result)
+      {
+        is Result.Failure -> throw TmdbGqlException(result.error)
+        is Result.Success -> data = result.get()
+      }
     }
 
-    private inline fun <reified T : Any> sendRequest(url: String): T?
-    {
-        var data: T? = null
+    return data
+  }
 
-        url.httpGet().responseObject<T> {_, _, result ->
-            when (result)
-            {
-                is Result.Failure -> throw TmdbGqlException(result.error)
-                is Result.Success -> data = result.get()
-            }
-        }
+  private fun <T : Any> sendListRequest(url: String, params: List<Pair<String, Any?>> = emptyList()): List<T>
+  {
+    var data = emptyList<T>()
 
-        return data
+    url.httpGet(params).responseObject<List<T>> { _, _, result ->
+      when (result)
+      {
+        is Result.Failure -> throw TmdbGqlException(result.error)
+        is Result.Success -> data = result.get()
+      }
     }
 
-    private fun <T : Any> sendListRequest(url: String, params: List<Pair<String, Any?>> = emptyList()): List<T>
-    {
-        var data = emptyList<T>()
-
-        url.httpGet(params).responseObject<List<T>> {_, _, result ->
-            when (result)
-            {
-                is Result.Failure -> throw TmdbGqlException(result.error)
-                is Result.Success -> data = result.get()
-            }
-        }
-
-        return data
-    }
+    return data
+  }
 }

@@ -8,25 +8,25 @@ import graphql.annotations.*
 class TvSeasonType(id: Int = 0) : TmdbObjectType(id)
 {
 
-    @GraphQLField
-    @SerializedName("air_date")
-    var airDate = ""
+  @GraphQLField
+  @SerializedName("air_date")
+  var airDate = ""
 
-    @GraphQLField
-    @JvmSuppressWildcards
-    var episodes = listOf<TvEpisodeType>()
+  @GraphQLField
+  @JvmSuppressWildcards
+  var episodes = listOf<TvEpisodeType>()
 
-    @GraphQLField
-    var name = ""
+  @GraphQLField
+  var name = ""
 
-    @GraphQLField
-    var overview = ""
+  @GraphQLField
+  var overview = ""
 
-    @GraphQLField
-    @SerializedName("poster_path")
-    var posterPath = ""
+  @GraphQLField
+  @SerializedName("poster_path")
+  var posterPath = ""
 
-    @GraphQLField
-    @SerializedName("season_number")
-    var seasonNumber = 0
+  @GraphQLField
+  @SerializedName("season_number")
+  var seasonNumber = 0
 }

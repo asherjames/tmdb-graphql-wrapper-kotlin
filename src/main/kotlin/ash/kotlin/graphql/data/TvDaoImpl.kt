@@ -8,14 +8,14 @@ import com.mashape.unirest.http.JsonNode
 
 class TvDaoImpl : TvDao
 {
-    override fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
-    {
-        val response: HttpResponse<JsonNode> = TmdbRequest().sendTwoArgRequest(TmdbTwoArgUrl.TV_SEASON_URL,
-                tvShowId.toString(),
-                seasonNumber.toString())
-        val responseJson = response.body.`object`.toString()
+  override fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
+  {
+    val response: HttpResponse<JsonNode> = TmdbRequest().sendTwoArgRequest(TmdbTwoArgUrl.TV_SEASON_URL,
+        tvShowId.toString(),
+        seasonNumber.toString())
+    val responseJson = response.body.`object`.toString()
 
-        return Gson().fromJson(responseJson, object : TypeToken<TvSeasonType>()
-        {}.type)
-    }
+    return Gson().fromJson(responseJson, object : TypeToken<TvSeasonType>()
+    {}.type)
+  }
 }

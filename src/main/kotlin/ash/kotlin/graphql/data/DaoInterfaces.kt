@@ -7,26 +7,26 @@ import ash.kotlin.graphql.types.tvseason.TvSeasonType
 
 interface GenreDao
 {
-    fun getAllMovieGenres(): List<GenreType>
+  fun getAllMovieGenres(): List<GenreType>
 }
 
 interface MovieDao
 {
-    fun getKeywordsForMovie(movieId: Int): List<KeywordType>
+  fun getKeywordsForMovie(movieId: Int): List<KeywordType>
 }
 
 interface SearchDao
 {
-    fun searchMoviesWithQuery(query: String): List<MovieType>
+  fun searchMoviesWithQuery(query: String): List<MovieType>
 
-    @JvmSuppressWildcards
-    fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType>
+  @JvmSuppressWildcards
+  fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType>
 
-    @JvmSuppressWildcards
-    fun searchMultiSearch(params: Map<String, Any>): List<Any>
+  @JvmSuppressWildcards
+  fun searchMultiSearch(params: Map<String, Any>): List<Any>
 }
 
 interface TvDao
 {
-    fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
+  fun getTvSeason(tvShowId: Int, seasonNumber: Int): TvSeasonType
 }

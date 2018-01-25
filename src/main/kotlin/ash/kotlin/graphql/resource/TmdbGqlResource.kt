@@ -11,18 +11,18 @@ import javax.ws.rs.QueryParam
 class TmdbGqlResource(@Inject private val tmdbSchema: TmdbSchema)
 {
 
-    @GET
-    fun pingEndpoint(): String
-    {
-        return "GET endpoint"
-    }
+  @GET
+  fun pingEndpoint(): String
+  {
+    return "GET endpoint"
+  }
 
-    @GET
-    @Path("/graphql")
-    @Produces("application/json")
-    @Timed
-    fun graphqlEndpoint(@QueryParam("query") query: String): Any
-    {
-        return tmdbSchema.executeQuery(query)
-    }
+  @GET
+  @Path("/graphql")
+  @Produces("application/json")
+  @Timed
+  fun graphqlEndpoint(@QueryParam("query") query: String): Any
+  {
+    return tmdbSchema.executeQuery(query)
+  }
 }
