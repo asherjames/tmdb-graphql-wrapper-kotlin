@@ -15,7 +15,7 @@ class MovieKeywordFieldDefinition(@Inject private val tmdbUtil: TmdbUtil) : Fiel
         .type(GraphQLList(KeywordType().getGraphQlType()))
         .name("keywordList")
         .argument { arg -> arg.name("filmId").type(Scalars.GraphQLInt) }
-        .dataFetcher { env -> tmdbUtil.searchMoviesWithQuery(env.getArgument("filmId")) }
+        .dataFetcher { env -> tmdbUtil.getMovieKeywords(env.getArgument("filmId")) }
         .build()
   }
 }
