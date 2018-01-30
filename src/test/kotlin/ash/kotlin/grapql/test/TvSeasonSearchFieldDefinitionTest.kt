@@ -2,13 +2,9 @@ package ash.kotlin.grapql.test
 
 import ash.kotlin.graphql.TmdbSchema
 import ash.kotlin.graphql.data.TmdbUtil
-import ash.kotlin.graphql.data.TvDao
-import ash.kotlin.graphql.fields.FieldDefiner
-import ash.kotlin.graphql.fields.MovieKeywordFieldDefinition
 import ash.kotlin.graphql.fields.TvSeasonSearchFieldDefinition
 import ash.kotlin.graphql.types.tvseason.TvEpisodeType
 import ash.kotlin.graphql.types.tvseason.TvGuestStarType
-import ash.kotlin.graphql.types.tvseason.TvSeasonType
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
