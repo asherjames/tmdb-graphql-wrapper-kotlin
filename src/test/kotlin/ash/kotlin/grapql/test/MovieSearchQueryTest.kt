@@ -1,22 +1,56 @@
 package ash.kotlin.grapql.test
 
 import ash.kotlin.graphql.TmdbSchema
-import ash.kotlin.graphql.data.SearchDao
-import ash.kotlin.graphql.fields.FieldDefiner
+import ash.kotlin.graphql.data.TmdbUtil
 import ash.kotlin.graphql.fields.MovieSearchFieldDefinition
-import ash.kotlin.graphql.types.movie.MovieType
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import org.assertj.core.api.Assertions.*
-import org.junit.BeforeClass
-import org.junit.Ignore
+import org.junit.Before
 import org.junit.Test
-import java.util.ArrayList
+import org.junit.runner.RunWith
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.anyList
+import org.mockito.junit.MockitoJUnitRunner
 
-@Ignore
+@RunWith(MockitoJUnitRunner.Silent::class)
 class MovieSearchQueryTest
 {
+  private lateinit var posterPathResultObject: Any
+  private lateinit var posterPathResultJson: JsonObject
+  private lateinit var multipleFieldsResultJson: JsonObject
+  private lateinit var nullQueryResultJson: JsonArray
+
+  @Mock
+  private lateinit var tmdbutil: TmdbUtil
+
+  @InjectMocks
+  private lateinit var fieldDefinition: MovieSearchFieldDefinition
+
+  @Before
+  fun setupResults()
+  {
+    setupMocks()
+
+    val schema = TmdbSchema(listOf(fieldDefinition))
+
+    posterPathResultObject = schema.executeQuery("{movieSearch(query: \"Das Boot\"){posterPath}}")
+    posterPathResultJson = extractData(posterPathResultObject)
+
+    val multipleFieldsResultObject = schema.executeQuery("{movieSearch(query: \"Das Boot\"){releaseDate title popularity voteCount}}")
+    multipleFieldsResultJson = extractData(multipleFieldsResultObject)
+
+    val nullQueryResultObject = schema.executeQuery("{movieSearch(year: 1981){releaseDate title popularity voteCount}}")
+    nullQueryResultJson = extractError(nullQueryResultObject)
+  }
+
+  private fun setupMocks()
+  {
+    `when`(tmdbutil.searchMoviesWithMultipleParameters(anyList())).thenReturn(listOf(getMovie()))
+  }
 
   @Test
   fun correctPosterpathQueryShouldNotReturnNull()
@@ -48,54 +82,5 @@ class MovieSearchQueryTest
     val errorObject = nullQueryResultJson[0].asJsonObject
 
     assertThat(errorObject["description"].asString).isEqualTo("Missing field argument query")
-  }
-
-  companion object
-  {
-
-    private lateinit var posterPathResultObject: Any
-    private lateinit var posterPathResultJson: JsonObject
-    private lateinit var multipleFieldsResultJson: JsonObject
-    private lateinit var nullQueryResultJson: JsonArray
-
-    @BeforeClass
-    @JvmStatic
-    fun setupResults()
-    {
-      val schema = TmdbSchema(mockFields())
-
-      posterPathResultObject = schema.executeQuery("{movieSearch(query: \"Das Boot\"){posterPath}}")
-      posterPathResultJson = extractData(posterPathResultObject)
-
-      val multipleFieldsResultObject = schema.executeQuery("{movieSearch(query: \"Das Boot\"){releaseDate title popularity voteCount}}")
-      multipleFieldsResultJson = extractData(multipleFieldsResultObject)
-
-      val nullQueryResultObject = schema.executeQuery("{movieSearch(year: 1981){releaseDate title popularity voteCount}}")
-      nullQueryResultJson = extractError(nullQueryResultObject)
-    }
-
-    private fun mockFields(): List<FieldDefiner>
-    {
-//      class SearchDaoStub : SearchDao
-//      {
-//        override fun searchMoviesWithQuery(query: String): List<MovieType>
-//        {
-//          return ArrayList()
-//        }
-//
-//        override fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType>
-//        {
-//          return listOf(getMovie())
-//        }
-//
-//        override fun searchMultiSearch(params: Map<String, Any>): List<Any>
-//        {
-//          return ArrayList()
-//        }
-//      }
-//
-//      return listOf(MovieSearchFieldDefinition(SearchDaoStub()))
-      return emptyList()
-    }
   }
 }
