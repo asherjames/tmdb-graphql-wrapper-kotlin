@@ -1,27 +1,86 @@
 package ash.kotlin.grapql.test
 
 import ash.kotlin.graphql.TmdbSchema
-import ash.kotlin.graphql.data.SearchDao
-import ash.kotlin.graphql.fields.FieldDefiner
-import ash.kotlin.graphql.fields.MultiSearchSchema
-import ash.kotlin.graphql.types.movie.MovieType
+import ash.kotlin.graphql.data.TmdbUtil
+import ash.kotlin.graphql.fields.MultiSearchFieldDefinition
 import org.assertj.core.api.Assertions.*
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import com.google.gson.reflect.TypeToken
-import org.junit.BeforeClass
-import org.junit.Ignore
+import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.anyList
 
-@Ignore
+@RunWith(MockitoJUnitRunner.Silent::class)
 class MultiSearchQueryTest
 {
-
   private val nameField = "name"
 
   private val titleField = "title"
+
+  private val gson = Gson()
+
+  private lateinit var personNameQueryJson: JsonObject
+  private lateinit var movieTitleQueryJson: JsonObject
+  private lateinit var tvShowNameQueryJson: JsonObject
+  private lateinit var moviePersonQueryJson: JsonObject
+  private lateinit var multiTypeQueryJson: JsonObject
+  private lateinit var nullQueryJson: JsonArray
+
+  @Mock
+  private lateinit var tmdbutil: TmdbUtil
+
+  @InjectMocks
+  private lateinit var fieldDefinition: MultiSearchFieldDefinition
+
+  @Before
+  fun setupResults()
+  {
+    setupMocks()
+
+    val schema = TmdbSchema(listOf(fieldDefinition))
+
+    val personNameQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){" + "... on Person {name}}}")
+
+    personNameQueryJson = extractData(personNameQueryResultObject)
+
+    val movieTitleQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){" + "... on Movie{title}}}")
+
+    movieTitleQueryJson = extractData(movieTitleQueryResultObject)
+
+    val tvShowTitleQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){" + "... on TvShow {name}}}")
+
+    tvShowNameQueryJson = extractData(tvShowTitleQueryResultObject)
+
+    val moviePersonQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){"
+        + "... on Person {profilePath}"
+        + "... on Movie {releaseDate}}}")
+
+    moviePersonQueryJson = extractData(moviePersonQueryResultObject)
+
+    val multiTypeQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){"
+        + "... on Person {id}"
+        + "... on Movie {overview genreIds originalLanguage}"
+        + "... on TvShow{popularity firstAirDate originalName}}}")
+
+    multiTypeQueryJson = extractData(multiTypeQueryResultObject)
+
+    val nullQueryResultObject = schema.executeQuery("{multiSearch(page: 1){" + "... on Person {name}}}")
+
+    nullQueryJson = extractError(nullQueryResultObject)
+  }
+
+  private fun setupMocks()
+  {
+    `when`(tmdbutil.searchMulti(anyList())).thenReturn(listOf(getMovie(), getPerson(), getTvShow()))
+  }
 
   @Test
   fun correctValueInPersonNameQuery()
@@ -146,81 +205,5 @@ class MultiSearchQueryTest
   private fun getResultElement(input: JsonObject, type: Int): JsonObject
   {
     return input["multiSearch"].asJsonArray.get(type).asJsonObject
-  }
-
-  companion object
-  {
-
-    private val gson = Gson()
-
-    private lateinit var personNameQueryJson: JsonObject
-    private lateinit var movieTitleQueryJson: JsonObject
-    private lateinit var tvShowNameQueryJson: JsonObject
-    private lateinit var moviePersonQueryJson: JsonObject
-    private lateinit var multiTypeQueryJson: JsonObject
-    private lateinit var nullQueryJson: JsonArray
-
-    @BeforeClass
-    @JvmStatic
-    fun setupResults()
-    {
-      val schema = TmdbSchema(mockFields())
-
-      val personNameQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){" + "... on Person {name}}}")
-
-      personNameQueryJson = extractData(personNameQueryResultObject)
-
-      val movieTitleQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){" + "... on Movie{title}}}")
-
-      movieTitleQueryJson = extractData(movieTitleQueryResultObject)
-
-      val tvShowTitleQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){" + "... on TvShow {name}}}")
-
-      tvShowNameQueryJson = extractData(tvShowTitleQueryResultObject)
-
-      val moviePersonQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){"
-          + "... on Person {profilePath}"
-          + "... on Movie {releaseDate}}}")
-
-      moviePersonQueryJson = extractData(moviePersonQueryResultObject)
-
-      val multiTypeQueryResultObject = schema.executeQuery("{multiSearch(query: \"query input\"){"
-          + "... on Person {id}"
-          + "... on Movie {overview genreIds originalLanguage}"
-          + "... on TvShow{popularity firstAirDate originalName}}}")
-
-      multiTypeQueryJson = extractData(multiTypeQueryResultObject)
-
-      val nullQueryResultObject = schema.executeQuery("{multiSearch(page: 1){" + "... on Person {name}}}")
-
-      nullQueryJson = extractError(nullQueryResultObject)
-    }
-
-    private fun mockFields(): List<FieldDefiner>
-    {
-//            class SearchDaoStub : SearchDao
-//            {
-//                override fun searchMoviesWithQuery(query: String): List<MovieType>
-//                {
-//                    return listOf()
-//                }
-//
-//                override fun searchMoviesWithMultipleParameters(params: Map<String, Any>): List<MovieType>
-//                {
-//                    return listOf()
-//                }
-//
-//                override fun searchMultiSearch(params: Map<String, Any>): List<Any>
-//                {
-//                    return listOf(getMovie(),
-//                            getPerson(),
-//                            getTvShow())
-//                }
-//            }
-//
-//            return listOf(MultiSearchSchema(SearchDaoStub()))
-
-      return emptyList()
-    }
   }
 }
