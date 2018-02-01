@@ -1,0 +1,2 @@
+apikey: ${API_KEY}
+baseUrl: ${TMDB_BASE_URL}

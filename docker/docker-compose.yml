@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  tmdb-gql:
+    build: .
+    ports:
+      - "8080:8080"

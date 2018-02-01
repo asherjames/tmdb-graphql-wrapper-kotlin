@@ -1,6 +1,8 @@
 plugins {
-  id 'org.jetbrains.kotlin.jvm' version '1.2.20'
   id 'com.avast.gradle.docker-compose' version '0.6.12'
+  id 'com.github.johnrengelman.shadow' version '2.0.2'
+  id 'org.jetbrains.kotlin.jvm' version '1.2.20'
+  id 'org.unbroken-dome.test-sets' version '1.4.2'
 }
 
 group 'ash.kotlin'
@@ -12,6 +14,9 @@ apply plugin: 'docker-compose'
 jar {
   baseName = 'tmdb-gql-kotlin'
   version = '0.0.1'
+  manifest {
+    attributes 'Main-Class': 'ash.kotlin.graphql.TmdbApplicationKt'
+  }
 }
 
 sourceCompatibility = 1.8
@@ -24,6 +29,30 @@ repositories {
 
 ext {
   fuelVersion = '1.12.0'
+}
+
+task copyDocker(type: Copy) {
+  from 'docker'
+  into 'build'
+}
+
+task copyYml(type: Copy) {
+  from 'yml'
+  into 'build'
+}
+
+testSets {
+  smokeTest
+}
+
+build.dependsOn shadowJar, copyDocker, copyYml
+
+smokeTest.dependsOn build
+
+dockerCompose.isRequiredBy(smokeTest)
+
+dockerCompose {
+  useComposeFiles = ['build/docker-compose.yml']
 }
 
 dependencies {
