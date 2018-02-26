@@ -18,7 +18,6 @@ import com.google.gson.JsonParser
 import org.jvnet.hk2.annotations.Service
 import javax.inject.Inject
 
-@Service
 class TmdbUtilImpl @Inject constructor(config: AppConfig) : TmdbUtil
 {
   init

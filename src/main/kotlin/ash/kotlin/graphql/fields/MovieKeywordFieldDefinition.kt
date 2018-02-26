@@ -7,7 +7,7 @@ import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLList
 import javax.inject.Inject
 
-class MovieKeywordFieldDefinition(@Inject private val tmdbUtil: TmdbUtil) : FieldDefiner
+class MovieKeywordFieldDefinition @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
 {
   override fun getFieldDefinition(): GraphQLFieldDefinition
   {

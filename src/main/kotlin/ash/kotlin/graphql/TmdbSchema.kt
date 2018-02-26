@@ -4,13 +4,11 @@ import ash.kotlin.graphql.fields.FieldDefiner
 import graphql.GraphQL
 import graphql.schema.GraphQLObjectType
 import graphql.schema.GraphQLSchema
-import org.jvnet.hk2.annotations.Service
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
 
-@Service
-class TmdbSchema(@Inject private val tmdbFields: Iterable<FieldDefiner>)
+class TmdbSchema @Inject constructor(tmdbFields: Iterable<@JvmSuppressWildcards FieldDefiner>)
 {
   private var graphQl: GraphQL
   private val log: Logger = LoggerFactory.getLogger(TmdbSchema::class.java)
@@ -20,6 +18,8 @@ class TmdbSchema(@Inject private val tmdbFields: Iterable<FieldDefiner>)
     val fieldDefinitions = tmdbFields
         .map(FieldDefiner::getFieldDefinition)
         .toList()
+
+    log.info("Using field definitions: ${fieldDefinitions.map { f -> f.name} }")
 
     val queryType = GraphQLObjectType.newObject()
         .name("QueryType")

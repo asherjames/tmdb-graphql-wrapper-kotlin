@@ -6,7 +6,7 @@ import graphql.Scalars.*
 import graphql.schema.*
 import javax.inject.Inject
 
-class MovieSearchFieldDefinition(@Inject private val tmdbUtil: TmdbUtil) : FieldDefiner
+class MovieSearchFieldDefinition @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
 {
   override fun getFieldDefinition(): GraphQLFieldDefinition
   {

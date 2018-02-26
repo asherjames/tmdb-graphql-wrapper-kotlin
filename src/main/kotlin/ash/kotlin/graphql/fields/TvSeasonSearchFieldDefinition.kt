@@ -7,7 +7,7 @@ import graphql.schema.GraphQLFieldDefinition
 import graphql.schema.GraphQLNonNull
 import javax.inject.Inject
 
-class TvSeasonSearchFieldDefinition(@Inject private val tmdbUtil: TmdbUtil) : FieldDefiner
+class TvSeasonSearchFieldDefinition @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
 {
   override fun getFieldDefinition(): GraphQLFieldDefinition
   {

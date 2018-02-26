@@ -6,7 +6,6 @@ import ash.kotlin.graphql.types.movie.MovieType
 import ash.kotlin.graphql.types.tvseason.TvSeasonType
 import org.jvnet.hk2.annotations.Contract
 
-@Contract
 interface TmdbUtil
 {
   fun getGenreList(): List<GenreType>

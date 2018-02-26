@@ -3,12 +3,15 @@ package ash.kotlin.graphql.resource
 import ash.kotlin.graphql.TmdbSchema
 import com.codahale.metrics.annotation.Timed
 import javax.inject.Inject
+import javax.inject.Singleton
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
 import javax.ws.rs.QueryParam
 
-class TmdbGqlResource(@Inject private val tmdbSchema: TmdbSchema)
+@Path("/app")
+@Singleton
+class TmdbGqlResource @Inject constructor(private val tmdbSchema: TmdbSchema)
 {
 
   @GET

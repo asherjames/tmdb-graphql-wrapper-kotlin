@@ -5,7 +5,7 @@ import ash.kotlin.graphql.types.genre.GenreType
 import graphql.schema.*
 import javax.inject.Inject
 
-class GenreFieldDefinition(@Inject private val tmdbUtil: TmdbUtil) : FieldDefiner
+class GenreFieldDefinition @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
 {
   override fun getFieldDefinition(): GraphQLFieldDefinition
   {

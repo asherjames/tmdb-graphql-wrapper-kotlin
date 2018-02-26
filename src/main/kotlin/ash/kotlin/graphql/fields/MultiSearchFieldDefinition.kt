@@ -11,7 +11,7 @@ import graphql.schema.GraphQLNonNull
 import graphql.schema.GraphQLUnionType
 import javax.inject.Inject
 
-class MultiSearchFieldDefinition(@Inject private val tmdbUtil: TmdbUtil) : FieldDefiner
+class MultiSearchFieldDefinition @Inject constructor(private val tmdbUtil: TmdbUtil) : FieldDefiner
 {
   override fun getFieldDefinition(): GraphQLFieldDefinition
   {
